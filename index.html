@@ -234,26 +234,24 @@
         }
 
         .nav-item-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .nav-item-icon img {
-            width: 28px;
-            height: 28px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
 
         .nav-item:hover .nav-item-icon {
-            border-color: var(--border-active);
+            transform: scale(1.05);
         }
 
         .nav-item-content {
@@ -359,14 +357,12 @@
         }
 
         .project-icon-large {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
             overflow: hidden;
             position: relative;
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
@@ -384,8 +380,8 @@
         }
 
         .project-icon-large img {
-            width: 56px;
-            height: 56px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
 
@@ -572,6 +568,93 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             line-height: 1.5;
+        }
+
+        /* 使用指南卡片 */
+        .usage-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .usage-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .usage-card:hover {
+            border-color: var(--border-active);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .usage-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .usage-card-icon {
+            font-size: 1.5rem;
+        }
+
+        .usage-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .usage-card-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .usage-step {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .usage-card-note {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .usage-card-note::before {
+            content: '💡';
+            font-size: 0.9rem;
         }
 
         /* 技术栈标签 */
@@ -852,6 +935,9 @@
             .features-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
+            .usage-cards {
+                grid-template-columns: 1fr;
+            }
             .header-download-platforms {
                 justify-content: center;
             }
@@ -1077,6 +1163,66 @@
                 </div>
             </div>
             
+            <div class="features-section">
+                <h2 class="section-title">使用指南</h2>
+                <div class="usage-cards">
+                    <div class="usage-card">
+                        <div class="usage-card-header">
+                            <span class="usage-card-icon">🏠</span>
+                            <span class="usage-card-title">创建房间（主机端）</span>
+                        </div>
+                        <div class="usage-card-steps">
+                            <div class="usage-step">
+                                <span class="step-number">1</span>
+                                <span class="step-content">点击"创建连接"按钮</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">2</span>
+                                <span class="step-content">可选：设置6位数字房间号和密码保护</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">3</span>
+                                <span class="step-content">点击创建，进入同步状态界面</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">4</span>
+                                <span class="step-content">等待其他用户加入，开始实时同步</span>
+                            </div>
+                        </div>
+                        <div class="usage-card-note">主机端可查看所有同步记录、在线连接端列表</div>
+                    </div>
+                    <div class="usage-card">
+                        <div class="usage-card-header">
+                            <span class="usage-card-icon">🔗</span>
+                            <span class="usage-card-title">加入房间（连接端）</span>
+                        </div>
+                        <div class="usage-card-steps">
+                            <div class="usage-step">
+                                <span class="step-number">1</span>
+                                <span class="step-content">点击"加入连接"按钮</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">2</span>
+                                <span class="step-content">扫描已有房间或手动输入房间号</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">3</span>
+                                <span class="step-content">如有密码保护，输入密码进行预验证</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">4</span>
+                                <span class="step-content">验证失败即时提示，可修改信息重试</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">5</span>
+                                <span class="step-content">点击连接，自动从主机全量同步</span>
+                            </div>
+                        </div>
+                        <div class="usage-card-note">断线重连后自动增量同步补齐差异</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="features-section">
                 <h2 class="section-title">核心功能</h2>
                 <div class="features-grid">
