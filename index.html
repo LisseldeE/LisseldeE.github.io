@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisselde_E - 个人项目主页</title>
+    <meta name="description" content="Lisselde_E 的个人项目主页，包含 LANSyncBox、SyncGUI、DeskHelperGUI 等实用工具。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-pink: #ec4899;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --border-active: rgba(255, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-active);
+        }
+
+        /* Firefox 滚动条 */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-light) var(--bg-secondary);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景装饰 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            left: 10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 网格背景 */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 280px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-title-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-active);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .sidebar-title-icon img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* 导航项目 */
+        .nav-items {
+            flex: 1;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-item:hover .nav-item-icon {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-item.active::before {
+            background: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item-icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .nav-item:hover .nav-item-icon {
+            border-color: var(--border-active);
+        }
+
+        .nav-item-content {
+            flex: 1;
+        }
+
+        .nav-item-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .nav-item-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.125rem;
+        }
+
+        /* 侧边栏底部 */
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1;
+        }
+
+        /* 项目页面 */
+        .project-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 3rem;
+            opacity: 0;
+            transform: translateX(30px);
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-page.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .project-page.exit-left {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        /* 项目头部 */
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .project-header-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        .project-header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .project-icon-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .project-icon-large::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .project-icon-large img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            position: relative;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        .project-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .project-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--border-active);
+            color: var(--text-primary);
+        }
+
+        /* 顶部下载卡片 */
+        .header-download-platforms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-download-platform {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            min-width: 140px;
+            transition: border-color 0.3s ease;
+        }
+
+        .header-download-platform:hover {
+            border-color: var(--border-active);
+        }
+
+        .header-download-platform-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+            width: 100%;
+        }
+
+        .header-download-platform-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .header-download-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .header-download-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .header-download-badge img {
+            height: 36px;
+        }
+
+        /* 功能卡片 */
+        .features-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* 技术栈标签 */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.875rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-blue);
+        }
+
+        /* 下载区域 */
+        .download-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+        }
+
+        .download-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .download-title-icon {
+            font-size: 1.25rem;
+        }
+
+        .download-platforms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .download-platform {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            min-width: 180px;
+        }
+
+        .download-platform-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .download-platform-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+
+        .download-btn:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn.github:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .download-btn.gitee:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .download-btn img {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .download-badge {
+            transition: transform 0.3s ease;
+        }
+
+        .download-badge:hover {
+            transform: translateY(-3px);
+        }
+
+        .download-badge img {
+            height: 40px;
+        }
+
+        .download-source-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .download-source-btn:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-source-btn.github:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .download-source-btn.gitee:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .download-source-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .download-source-btn img {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1400px) {
+            .project-page {
+                padding: 2rem 2.5rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .project-page {
+                padding: 1.5rem 2rem;
+            }
+            .project-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+            .project-page {
+                padding: 1.5rem 1.5rem;
+            }
+            .grid-bg {
+                left: 200px;
+            }
+            .project-title {
+                font-size: 1.75rem;
+            }
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 180px;
+            }
+            .main-content {
+                margin-left: 180px;
+            }
+            .project-page {
+                padding: 1.25rem 1.25rem;
+            }
+            .grid-bg {
+                left: 180px;
+            }
+            .project-header {
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+            .project-header-left {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .project-header-right {
+                justify-content: center;
+            }
+            .project-icon-large {
+                width: 60px;
+                height: 60px;
+            }
+            .project-icon-large img {
+                width: 40px;
+                height: 40px;
+            }
+            .project-title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            .project-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .project-subtitle {
+                text-align: center;
+            }
+            .project-links {
+                justify-content: center;
+            }
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            .header-download-platforms {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+            }
+            .grid-bg {
+                left: 0;
+                top: auto;
+            }
+            .nav-items {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 0.5rem;
+            }
+            .nav-section-title {
+                display: none;
+            }
+            .nav-item {
+                flex-direction: column;
+                padding: 0.75rem;
+                text-align: center;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+            }
+            .nav-item::before {
+                display: none;
+            }
+            .nav-item.active {
+                border-bottom-color: var(--text-primary);
+            }
+            .nav-item-desc {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .project-page {
+                padding: 1rem;
+            }
+            .project-header {
+                gap: 0.75rem;
+            }
+            .project-header-left {
+                gap: 0.75rem;
+            }
+            .project-title {
+                font-size: 1.25rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .download-section {
+                padding: 1rem;
+            }
+            .download-platforms {
+                flex-direction: column;
+            }
+            .download-platform {
+                min-width: 100%;
+            }
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .header-download-platforms {
+                flex-direction: column;
+            }
+            .header-download-platform {
+                min-width: 100%;
+            }
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        /* 减少动画偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            .project-page {
+                transition: opacity 0.3s ease;
+                transform: none !important;
+            }
+            .project-page.active {
+                transform: none !important;
+            }
+            .project-page.exit-left {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 网格背景 -->
+    <div class="grid-bg"></div>
+
+    <!-- 左侧导航栏 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <div class="sidebar-title-icon">
+                    <img src="image/me.ico" alt="Lisselde_E">
+                </div>
+                <span>Lisselde_E</span>
+            </div>
+            <div class="sidebar-subtitle">PERSONAL PROJECTS</div>
+        </div>
+        
+        <nav class="nav-items">
+            <div class="nav-section-title">我的项目</div>
+            
+            <div class="nav-item active" data-project="lansyncbox">
+                <div class="nav-item-icon">
+                    <img src="image/lansyncbox.ico" alt="LANSyncBox">
+                </div>
+                <div class="nav-item-content">
+                    <div class="nav-item-name">LANSyncBox</div>
+                    <div class="nav-item-desc">局域网文件同步</div>
+                </div>
+            </div>
+            
+            <div class="nav-item" data-project="syncgui">
+                <div class="nav-item-icon">
+                    <img src="image/syncgui.ico" alt="SyncGUI">
+                </div>
+                <div class="nav-item-content">
+                    <div class="nav-item-name">SyncGUI</div>
+                    <div class="nav-item-desc">双端文件同步</div>
+                </div>
+            </div>
+            
+            <div class="nav-item" data-project="deskhelper">
+                <div class="nav-item-icon">
+                    <img src="image/deskhelper.ico" alt="DeskHelperGUI">
+                </div>
+                <div class="nav-item-content">
+                    <div class="nav-item-name">DeskHelperGUI</div>
+                    <div class="nav-item-desc">桌面办公助手</div>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="sidebar-links">
+                <a href="https://github.com/LisseldeE" target="_blank" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>GitHub 主页</span>
+                </a>
+                <a href="https://gitee.com/Lisselde_E" target="_blank" class="sidebar-link">
+                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="14" height="14" alt="Gitee" style="vertical-align: middle;">
+                    <span>Gitee 主页</span>
+                </a>
+                <span class="sidebar-link copy-email" data-email="Lisselde.E@outlook.com" style="cursor: pointer;">
+                    <span>📧</span>
+                    <span>联系邮箱</span>
+                </span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- LANSyncBox 项目页面 -->
+        <section class="project-page active" id="lansyncbox">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="image/lansyncbox.ico" alt="LANSyncBox">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">LANSyncBox</h1>
+                        <p class="project-subtitle">局域网文件实时同步工具，实现多人隔空文件共享</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/LANSyncBox" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                GitHub 仓库
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">Microsoft Store</span>
+                            <a href="https://apps.microsoft.com/detail/9nsjvp7fxkm3?referrer=appbadge&mode=full" target="_blank" class="header-download-badge">
+                                <img src="https://get.microsoft.com/images/zh-cn%20dark.svg" alt="Microsoft Store">
+                            </a>
+                        </div>
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/LANSyncBox/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub 发行
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/LANSyncBox/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee 发行
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">🔄 实时同步</div>
+                        <div class="feature-desc">文件添加、修改、删除、重命名操作实时同步至所有连接端，支持文件夹递归同步</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🛡️ 传输可靠性</div>
+                        <div class="feature-desc">断点续传、完整性校验、背压自适应、流式传输，确保大文件稳定传输</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">👥 多端同步</div>
+                        <div class="feature-desc">主机端修改实时同步至所有端，支持并发传输限制（最多3个文件）</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🔐 安全验证</div>
+                        <div class="feature-desc">自定义房间号，可选密码验证，加入时版本号验证确保连接兼容性</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📁 文件操作</div>
+                        <div class="feature-desc">支持复制、剪切、粘贴、删除、重命名，双击空白快速添加文件/文件夹</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">👁️ 文件预览</div>
+                        <div class="feature-desc">双击文件直接预览，预览窗口只读模式，避免误修改文件内容</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🌐 多语言支持</div>
+                        <div class="feature-desc">支持中文/英文界面切换，实时切换无需重启程序</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PySide6 (Qt6)</span>
+                    <span class="tech-tag">TCP 自定义协议</span>
+                    <span class="tech-tag">流式传输</span>
+                    <span class="tech-tag">断点续传</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SyncGUI 项目页面 -->
+        <section class="project-page" id="syncgui">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="image/syncgui.ico" alt="SyncGUI">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">SyncGUI</h1>
+                        <p class="project-subtitle">双端文件同步工具，智能差异检测，多种同步模式</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/SyncGUI" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                GitHub 仓库
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">Microsoft Store</span>
+                            <a href="https://apps.microsoft.com/detail/9ncs5fmkwq6l?referrer=appbadge&mode=full" target="_blank" class="header-download-badge">
+                                <img src="https://get.microsoft.com/images/zh-cn%20dark.svg" alt="Microsoft Store">
+                            </a>
+                        </div>
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/SyncGUI/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub 发行
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/SyncGUI/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee 发行
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">🔄 双向同步</div>
+                        <div class="feature-desc">支持双端之间的双向文件同步，智能识别新增、修改、冲突文件</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🎯 差异检测</div>
+                        <div class="feature-desc">MD5 哈希内容比对，自动识别文件差异，精确判断同步方向</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📂 目录同步</div>
+                        <div class="feature-desc">可配置特定目录按整体同步，正确处理空目录及符号链接</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">⚡ 单向同步</div>
+                        <div class="feature-desc">差异同步或覆盖同步模式，可选保留或删除多余项目</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📝 忽略规则</div>
+                        <div class="feature-desc">支持自定义忽略规则语法，灵活排除不需要同步的文件</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">✏️ 自定义名称</div>
+                        <div class="feature-desc">支持自定义双端目录名称显示，配置自动保存恢复</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🌐 多语言支持</div>
+                        <div class="feature-desc">支持中文/英文界面切换，实时切换无需重启程序</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PySide6</span>
+                    <span class="tech-tag">Windows API</span>
+                    <span class="tech-tag">MD5 哈希</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DeskHelperGUI 项目页面 -->
+        <section class="project-page" id="deskhelper">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="image/deskhelper.ico" alt="DeskHelperGUI">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">DeskHelperGUI</h1>
+                        <p class="project-subtitle">桌面办公小助手，多种快捷实用功能</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/DeskHelperGUI" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                GitHub 仓库
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/DeskHelperGUI/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub 发行
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/DeskHelperGUI/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee 发行
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">📦 快捷压缩</div>
+                        <div class="feature-desc">文件压缩解压，支持多种格式、压缩级别、加密压缩，全局保存路径</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🖼️ 图片处理</div>
+                        <div class="feature-desc">旋转、裁剪、压缩图片，证件照排版，实时预览压缩效果</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📄 PDF处理</div>
+                        <div class="feature-desc">PDF拆分、合并、压缩，PDF转图片，PDF转Word保留表格样式</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🔄 格式转换</div>
+                        <div class="feature-desc">图片格式互转（JPG/PNG/ICO/BMP/GIF/WebP），支持多尺寸ICO</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🔐 文件加密</div>
+                        <div class="feature-desc">AES-256加密算法，支持大文件分块加密，实时进度显示</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">#️⃣ 二维码工具</div>
+                        <div class="feature-desc">生成、解码二维码，支持文本、URL、WiFi、名片等，自定义样式</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">📝 文件处理</div>
+                        <div class="feature-desc">文件名提取导出Excel、批量重命名、批量创建文件/文件夹</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">🔍 哈希校验</div>
+                        <div class="feature-desc">MD5、SHA-1、SHA-256、SHA-512 多种算法哈希值计算与比对校验</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PyQt5</span>
+                    <span class="tech-tag">Pillow</span>
+                    <span class="tech-tag">PyMuPDF</span>
+                    <span class="tech-tag">cryptography</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 导航切换逻辑
+        const navItems = document.querySelectorAll('.nav-item');
+        const projectPages = document.querySelectorAll('.project-page');
+        
+        let currentProject = 'lansyncbox';
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetProject = item.dataset.project;
+                
+                if (targetProject === currentProject) return;
+                
+                // 更新导航状态
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                // 切换页面
+                const currentPage = document.getElementById(currentProject);
+                const targetPage = document.getElementById(targetProject);
+                
+                currentPage.classList.add('exit-left');
+                currentPage.classList.remove('active');
+                
+                setTimeout(() => {
+                    currentPage.classList.remove('exit-left');
+                }, 500);
+                
+                targetPage.classList.add('active');
+                
+                currentProject = targetProject;
+            });
+        });
+
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            const projectOrder = ['lansyncbox', 'syncgui', 'deskhelper'];
+            const currentIndex = projectOrder.indexOf(currentProject);
+            
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                const nextIndex = (currentIndex + 1) % projectOrder.length;
+                const nextNav = document.querySelector(`[data-project="${projectOrder[nextIndex]}"]`);
+                nextNav.click();
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                const prevIndex = (currentIndex - 1 + projectOrder.length) % projectOrder.length;
+                const prevNav = document.querySelector(`[data-project="${projectOrder[prevIndex]}"]`);
+                prevNav.click();
+            }
+        });
+
+        // 邮箱复制功能
+        const copyEmailBtn = document.querySelector('.copy-email');
+        if (copyEmailBtn) {
+            copyEmailBtn.addEventListener('click', () => {
+                const email = copyEmailBtn.dataset.email;
+                navigator.clipboard.writeText(email).then(() => {
+                    const originalText = copyEmailBtn.querySelector('span:last-child').textContent;
+                    copyEmailBtn.querySelector('span:last-child').textContent = '已复制!';
+                    setTimeout(() => {
+                        copyEmailBtn.querySelector('span:last-child').textContent = originalText;
+                    }, 1500);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
