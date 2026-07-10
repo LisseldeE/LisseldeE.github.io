@@ -416,6 +416,37 @@
             margin-bottom: 1rem;
         }
 
+        .project-latest-build {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(59, 130, 246, 0.08));
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            transition: all 0.2s ease;
+        }
+
+        .project-latest-build:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(59, 130, 246, 0.12));
+        }
+
+        .project-latest-build-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .project-latest-build-version {
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
         .project-links {
             display: flex;
             gap: 1rem;
@@ -1112,12 +1143,15 @@
 
         .update-major-versions {
             overflow: hidden;
-            transition: max-height 0.35s ease;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
             padding-left: 0.25rem;
+            max-height: 2000px;
+            opacity: 1;
         }
 
         .update-major-group.collapsed .update-major-versions {
-            display: none;
+            max-height: 0;
+            opacity: 0;
         }
 
         .update-major-versions .update-node:first-child {
@@ -1621,6 +1655,10 @@
                 padding: 0.4rem 0.75rem;
                 font-size: 0.78rem;
             }
+            .project-latest-build {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.78rem;
+            }
 
             .section-title {
                 font-size: 1rem;
@@ -1859,6 +1897,7 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
+                            <div class="project-latest-build" id="latest-build-lansyncbox"></div>
                         </div>
                     </div>
                 </div>
@@ -2016,6 +2055,7 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
+                            <div class="project-latest-build" id="latest-build-syncgui"></div>
                         </div>
                     </div>
                 </div>
@@ -2112,6 +2152,7 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
+                            <div class="project-latest-build" id="latest-build-deskhelper"></div>
                         </div>
                     </div>
                 </div>
@@ -2375,14 +2416,18 @@
             const body = group.querySelector('.update-major-versions');
             const toggle = headerEl.querySelector('.update-major-toggle');
             const isCollapsed = group.classList.contains('collapsed');
-            
+
             if (isCollapsed) {
+                // 展开
                 group.classList.remove('collapsed');
-                body.style.display = '';
+                body.style.maxHeight = body.scrollHeight + 'px';
+                body.style.opacity = '1';
                 toggle.textContent = '\u2212';
             } else {
+                // 收起
                 group.classList.add('collapsed');
-                body.style.display = 'none';
+                body.style.maxHeight = '0';
+                body.style.opacity = '0';
                 toggle.textContent = '+';
             }
         }
@@ -2396,6 +2441,29 @@
             if (!data || !data.versions || data.versions.length === 0) {
                 container.innerHTML = '<div class="update-tree-empty">暂无更新记录</div>';
                 return;
+            }
+
+            // 更新项目头部的最新构建标签
+            const latestBuildEl = document.getElementById(`latest-build-${projectId}`);
+            if (latestBuildEl && data.versions.length > 0) {
+                const latestVersion = data.versions[0];
+                // 提取最新小版本标签
+                let latestSection = '';
+                if (latestVersion.changes && latestVersion.changes.length > 0) {
+                    const firstChangeWithSection = latestVersion.changes.find(c => c.section);
+                    if (firstChangeWithSection) {
+                        latestSection = firstChangeWithSection.section;
+                    }
+                }
+
+                // 构建版本字符串：R6#05（紧凑格式）
+                const majorVersion = latestVersion.version; // R6, R11等
+                const buildLabel = latestSection ? `${majorVersion}${latestSection}` : majorVersion;
+
+                latestBuildEl.innerHTML = `
+                    <span class="project-latest-build-label">最新构建</span>
+                    <span class="project-latest-build-version">${buildLabel}</span>
+                `;
             }
 
             section.classList.add('loading');
@@ -2432,7 +2500,7 @@
                 html += `</div>`;
                 
                 // Versions body
-                html += `<div class="update-major-versions"${isLatestGroup ? '' : ' style="display:none;"'}>`;
+                html += `<div class="update-major-versions"${isLatestGroup ? ' style="max-height: 2000px;"' : ' style="max-height: 0; opacity: 0;"'}>`;
                 
                 versions.forEach((v, vi) => {
                     const isLatest = gi === 0 && vi === 0;
