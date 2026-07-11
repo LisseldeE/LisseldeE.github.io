@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lisselde_E - 项目主页</title>
     <meta name="description" content="Lisselde_E 的个人项目主页，包含 LANSyncBox、SyncGUI、DeskHelperGUI 等实用工具。">
-    <link rel="icon" href="image/me.ico" type="image/x-icon">
+    <link rel="icon" href="images/icon/me.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -261,6 +261,221 @@
             .back-to-top:hover {
                 width: 80px;
             }
+        }
+
+        /* 图片展示组件 */
+        .image-gallery-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 0.75rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .gallery-thumb {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.25s ease;
+            background: var(--bg-secondary);
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-thumb:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .gallery-thumb:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-thumb.active {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 1px var(--accent-blue), 0 0 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .gallery-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery-thumb:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-main {
+            flex: 1;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            min-height: 300px;
+            aspect-ratio: 16/9;
+            background: var(--bg-secondary);
+        }
+
+        .gallery-main-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 0.35s ease;
+        }
+
+        .gallery-main-image.hidden {
+            opacity: 0;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 15, 0.9) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-main:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(10, 10, 15, 0.7);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* 图片展示移动端适配 */
+        @media (max-width: 768px) {
+            .image-gallery {
+                flex-direction: column;
+            }
+            .gallery-thumbnails {
+                width: 100%;
+                flex-direction: row;
+                order: 2;
+                justify-content: center;
+            }
+            .gallery-thumb {
+                aspect-ratio: 16/9;
+                width: 100px;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .gallery-main {
+                order: 1;
+                width: 100%;
+                min-height: 200px;
+                aspect-ratio: auto;
+            }
+        }
+
+        /* Lightbox 放大查看 */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transform: scale(1);
+            transition: transform 0.2s ease;
+            cursor: zoom-in;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .lightbox-close svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+        }
+
+        .lightbox-hint {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.7;
         }
 
         /* 网格背景 */
@@ -1998,7 +2213,7 @@
         <div class="sidebar-header">
             <div class="sidebar-title">
                 <div class="sidebar-title-icon">
-                    <img src="image/me.ico" alt="Lisselde_E">
+                    <img src="images/icon/me.ico" alt="Lisselde_E">
                 </div>
                 <span>Lisselde_E</span>
             </div>
@@ -2010,7 +2225,7 @@
             
             <div class="nav-item active" data-project="lansyncbox">
                 <div class="nav-item-icon">
-                    <img src="image/lansyncbox.ico" alt="LANSyncBox">
+                    <img src="images/icon/lansyncbox.ico" alt="LANSyncBox">
                 </div>
                 <div class="nav-item-content">
                     <div class="nav-item-name">LANSyncBox</div>
@@ -2020,7 +2235,7 @@
             
             <div class="nav-item" data-project="syncgui">
                 <div class="nav-item-icon">
-                    <img src="image/syncgui.ico" alt="SyncGUI">
+                    <img src="images/icon/syncgui.ico" alt="SyncGUI">
                 </div>
                 <div class="nav-item-content">
                     <div class="nav-item-name">SyncGUI</div>
@@ -2030,7 +2245,7 @@
             
             <div class="nav-item" data-project="deskhelper">
                 <div class="nav-item-icon">
-                    <img src="image/deskhelper.ico" alt="DeskHelperGUI">
+                    <img src="images/icon/deskhelper.ico" alt="DeskHelperGUI">
                 </div>
                 <div class="nav-item-content">
                     <div class="nav-item-name">DeskHelperGUI</div>
@@ -2067,7 +2282,7 @@
             <div class="project-header">
                 <div class="project-header-left">
                     <div class="project-icon-large">
-                        <img src="image/lansyncbox.ico" alt="LANSyncBox">
+                        <img src="images/icon/lansyncbox.ico" alt="LANSyncBox">
                     </div>
                     <div class="project-info">
                         <h1 class="project-title">LANSyncBox</h1>
@@ -2105,7 +2320,30 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title">界面截图</h2>
+                <div class="image-gallery" id="gallery-lansyncbox">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="images/webp/1-1.webp" alt="界面截图1">
+                        </div>
+                        <div class="gallery-thumb" data-index="1">
+                            <img src="images/webp/1-2.webp" alt="界面截图2">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="images/webp/1-1.webp" alt="界面截图1">
+                        <img class="gallery-main-image next hidden" src="images/webp/1-1.webp" alt="">
+                        <div class="gallery-counter">1 / 2</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">LANSyncBox 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="features-section">
                 <h2 class="section-title">使用指南</h2>
                 <div class="usage-cards">
@@ -2225,7 +2463,7 @@
             <div class="project-header">
                 <div class="project-header-left">
                     <div class="project-icon-large">
-                        <img src="image/syncgui.ico" alt="SyncGUI">
+                        <img src="images/icon/syncgui.ico" alt="SyncGUI">
                     </div>
                     <div class="project-info">
                         <h1 class="project-title">SyncGUI</h1>
@@ -2263,7 +2501,27 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-syncgui">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="images/webp/2-1.webp" alt="界面截图">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="images/webp/2-1.webp" alt="界面截图">
+                        <img class="gallery-main-image next hidden" src="images/webp/2-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">SyncGUI 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="features-section">
                 <h2 class="section-title">核心功能</h2>
                 <div class="features-grid">
@@ -2322,7 +2580,7 @@
             <div class="project-header">
                 <div class="project-header-left">
                     <div class="project-icon-large">
-                        <img src="image/deskhelper.ico" alt="DeskHelperGUI">
+                        <img src="images/icon/deskhelper.ico" alt="DeskHelperGUI">
                     </div>
                     <div class="project-info">
                         <h1 class="project-title">DeskHelperGUI</h1>
@@ -2354,7 +2612,27 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-deskhelper">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="images/webp/3-1.webp" alt="界面截图">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="images/webp/3-1.webp" alt="界面截图">
+                        <img class="gallery-main-image next hidden" src="images/webp/3-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">DeskHelperGUI 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="features-section">
                 <h2 class="section-title">核心功能</h2>
                 <div class="features-grid">
@@ -2549,6 +2827,10 @@
         function handleSwipe() {
             // 抽屉打开时不触发滑动切换
             if (sidebar.classList.contains('drawer-open')) return;
+
+            // Lightbox打开时不触发滑动切换
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox && lightbox.classList.contains('active')) return;
 
             const diffX = touchStartX - touchEndX;
             const diffY = touchStartY - touchEndY;
@@ -2813,6 +3095,16 @@
             item.addEventListener('click', () => {
                 const targetProject = item.dataset.project;
                 setTimeout(() => loadUpdateTree(targetProject), 100);
+
+                // 重置图片列表到第一张
+                const galleryMap = {
+                    'lansyncbox': 'gallery-lansyncbox',
+                    'syncgui': 'gallery-syncgui',
+                    'deskhelpergui': 'gallery-deskhelper'
+                };
+                if (galleryMap[targetProject]) {
+                    resetGallery(galleryMap[targetProject]);
+                }
             });
         });
 
@@ -2822,21 +3114,251 @@
                 const activePage = document.querySelector('.project-page.active');
                 if (activePage) {
                     loadUpdateTree(activePage.id);
+                    // 重置图片列表
+                    const galleryMap = {
+                        'lansyncbox': 'gallery-lansyncbox',
+                        'syncgui': 'gallery-syncgui',
+                        'deskhelpergui': 'gallery-deskhelper'
+                    };
+                    if (galleryMap[activePage.id]) {
+                        resetGallery(galleryMap[activePage.id]);
+                    }
                 }
             }, 150);
         });
 
-        // 页面加载完成隐藏加载动画
-        window.addEventListener('load', () => {
+        // 页面加载完成隐藏加载动画（只等待DOM，不等待图片）
+        document.addEventListener('DOMContentLoaded', () => {
             const pageLoader = document.getElementById('pageLoader');
             if (pageLoader) {
                 pageLoader.classList.add('fade-out');
-                // 动画完成后移除元素
                 setTimeout(() => {
                     pageLoader.remove();
                 }, 400);
             }
         });
+
+        // 图片展示切换逻辑
+        function initGallery(galleryId) {
+            const gallery = document.getElementById(galleryId);
+            if (!gallery) return;
+
+            const thumbs = gallery.querySelectorAll('.gallery-thumb');
+            const counter = gallery.querySelector('.gallery-counter');
+            const caption = gallery.querySelector('.gallery-caption');
+
+            const captions = ['LANSyncBox 界面截图', 'LANSyncBox 界面截图'];
+
+            thumbs.forEach((thumb, index) => {
+                thumb.addEventListener('click', () => {
+                    // 移除所有active
+                    thumbs.forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+
+                    // 每次点击重新获取当前元素
+                    const currentImg = gallery.querySelector('.gallery-main-image.current');
+                    const nextImg = gallery.querySelector('.gallery-main-image.next');
+
+                    // 获取新图片src
+                    const imgSrc = thumb.querySelector('img').src;
+
+                    // 如果是当前图片，不切换
+                    if (currentImg.src === imgSrc) return;
+
+                    // 交叉淡入淡出
+                    nextImg.src = imgSrc;
+                    currentImg.classList.add('hidden');
+                    nextImg.classList.remove('hidden');
+
+                    // 动画完成后交换角色
+                    setTimeout(() => {
+                        currentImg.classList.remove('current');
+                        currentImg.classList.add('next', 'hidden');
+                        nextImg.classList.remove('next', 'hidden');
+                        nextImg.classList.add('current');
+                    }, 350);
+
+                    // 更新计数器和描述
+                    if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
+                    if (caption) caption.textContent = captions[index] || '';
+                });
+            });
+        }
+
+        // 重置图片列表到第一张
+        function resetGallery(galleryId) {
+            const gallery = document.getElementById(galleryId);
+            if (!gallery) return;
+
+            const thumbs = gallery.querySelectorAll('.gallery-thumb');
+            const firstThumb = thumbs[0];
+            if (!firstThumb) return;
+
+            // 获取第一张图片src
+            const firstImgSrc = firstThumb.querySelector('img').src;
+
+            // 重置缩略图active状态
+            thumbs.forEach(t => t.classList.remove('active'));
+            firstThumb.classList.add('active');
+
+            // 重置图片
+            const currentImg = gallery.querySelector('.gallery-main-image.current');
+            const nextImg = gallery.querySelector('.gallery-main-image.next');
+            currentImg.src = firstImgSrc;
+            nextImg.src = firstImgSrc;
+
+            // 重置计数器
+            const counter = gallery.querySelector('.gallery-counter');
+            if (counter) counter.textContent = `1 / ${thumbs.length}`;
+        }
+
+        // 初始化所有画廊
+        window.addEventListener('load', () => {
+            initGallery('gallery-lansyncbox');
+            initGallery('gallery-syncgui');
+            initGallery('gallery-deskhelper');
+            initLightbox();
+        });
+
+        // Lightbox 放大查看功能
+        function initLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxClose = document.getElementById('lightboxClose');
+
+            let scale = 1;
+            let lastTouchDistance = 0;
+            let isDragging = false;
+            let startX = 0, startY = 0;
+            let offsetX = 0, offsetY = 0;
+
+            // 点击大图打开lightbox
+            document.querySelectorAll('.gallery-main').forEach(main => {
+                main.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('gallery-main-image')) {
+                        const imgSrc = e.target.src;
+                        lightboxImage.src = imgSrc;
+                        lightbox.classList.add('active');
+                        scale = 1;
+                        offsetX = 0;
+                        offsetY = 0;
+                        updateImageTransform();
+                    }
+                });
+            });
+
+            // 更新图片transform
+            function updateImageTransform() {
+                lightboxImage.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+            }
+
+            // 关闭lightbox
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                isDragging = false;
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // ESC关闭
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+
+            // 鼠标拖动
+            lightboxImage.addEventListener('mousedown', (e) => {
+                if (scale > 1) {
+                    isDragging = true;
+                    startX = e.clientX - offsetX;
+                    startY = e.clientY - offsetY;
+                    lightboxImage.style.cursor = 'grabbing';
+                }
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    offsetX = e.clientX - startX;
+                    offsetY = e.clientY - startY;
+                    updateImageTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                lightboxImage.style.cursor = scale > 1 ? 'grab' : 'default';
+            });
+
+            // 鼠标滚轮缩放
+            lightboxImage.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -0.1 : 0.1;
+                scale = Math.min(Math.max(0.5, scale + delta), 3);
+                lightboxImage.style.cursor = scale > 1 ? 'grab' : 'default';
+                if (scale <= 1) {
+                    offsetX = 0;
+                    offsetY = 0;
+                }
+                updateImageTransform();
+            });
+
+            // 双击放大/还原
+            lightboxImage.addEventListener('dblclick', () => {
+                scale = scale === 1 ? 2 : 1;
+                offsetX = 0;
+                offsetY = 0;
+                lightboxImage.style.cursor = scale > 1 ? 'grab' : 'default';
+                updateImageTransform();
+            });
+
+            // 移动端双指缩放
+            lightbox.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 2) {
+                    e.preventDefault();
+                    const touch1 = e.touches[0];
+                    const touch2 = e.touches[1];
+                    const distance = Math.hypot(
+                        touch2.clientX - touch1.clientX,
+                        touch2.clientY - touch1.clientY
+                    );
+                    if (lastTouchDistance > 0) {
+                        const delta = (distance - lastTouchDistance) * 0.01;
+                        scale = Math.min(Math.max(0.5, scale + delta), 3);
+                        if (scale <= 1) {
+                            offsetX = 0;
+                            offsetY = 0;
+                        }
+                        updateImageTransform();
+                    }
+                    lastTouchDistance = distance;
+                } else if (e.touches.length === 1 && scale > 1 && isDragging) {
+                    e.preventDefault();
+                    offsetX = e.touches[0].clientX - startX;
+                    offsetY = e.touches[0].clientY - startY;
+                    updateImageTransform();
+                }
+            });
+
+            lightbox.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 2) {
+                    lastTouchDistance = Math.hypot(
+                        e.touches[1].clientX - e.touches[0].clientX,
+                        e.touches[1].clientY - e.touches[0].clientY
+                    );
+                } else if (e.touches.length === 1 && scale > 1) {
+                    isDragging = true;
+                    startX = e.touches[0].clientX - offsetX;
+                    startY = e.touches[0].clientY - offsetY;
+                }
+            });
+
+            lightbox.addEventListener('touchend', () => {
+                lastTouchDistance = 0;
+                isDragging = false;
+            });
+        }
 
         // 返回顶部按钮逻辑
         window.addEventListener('load', () => {
@@ -2858,6 +3380,17 @@
             }
         });
     </script>
+
+    <!-- Lightbox 放大查看 -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <div class="lightbox-hint">双指缩放 / 双击放大</div>
+    </div>
 
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop" aria-label="返回顶部">
