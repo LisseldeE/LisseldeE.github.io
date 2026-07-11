@@ -258,8 +258,19 @@
                 width: 28px;
                 height: 60px;
             }
+            /* 移动端禁用hover展开效果 */
             .back-to-top:hover {
-                width: 80px;
+                width: 28px;
+                background: var(--bg-card);
+                border-color: var(--border-light);
+            }
+            .back-to-top:hover svg {
+                transform: none;
+                opacity: 1;
+            }
+            .back-to-top:hover::after {
+                font-size: 0;
+                opacity: 0;
             }
         }
 
@@ -438,7 +449,9 @@
             object-fit: contain;
             transform: scale(1);
             transition: transform 0.2s ease;
-            cursor: zoom-in;
+            cursor: default;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .lightbox-close {
@@ -455,6 +468,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s ease;
+            z-index: 10;
         }
 
         .lightbox-close:hover {
@@ -3271,6 +3285,7 @@
             // 鼠标拖动
             lightboxImage.addEventListener('mousedown', (e) => {
                 if (scale > 1) {
+                    e.preventDefault();
                     isDragging = true;
                     startX = e.clientX - offsetX;
                     startY = e.clientY - offsetY;
