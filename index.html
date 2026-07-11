@@ -98,6 +98,171 @@
             z-index: 0;
         }
 
+        /* 页面加载动画 */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* 平行四边形扫描加载器 */
+        .loader-scanner {
+            width: 80px;
+            height: 8px;
+            background: var(--bg-card);
+            transform: skewX(-20deg);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.1);
+        }
+
+        /* 扫描线 */
+        .loader-scanner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--accent-blue) 50%,
+                transparent 100%);
+            animation: scan 1.2s ease-in-out infinite;
+        }
+
+        /* 拖尾线条 */
+        .loader-trails {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+            transform: skewX(-20deg);
+        }
+
+        .loader-trail {
+            width: 12px;
+            height: 3px;
+            background: var(--border-light);
+            border-radius: 1px;
+            animation: trail-pulse 1.2s ease-in-out infinite;
+        }
+
+        .loader-trail:nth-child(1) { animation-delay: 0s; opacity: 0.3; }
+        .loader-trail:nth-child(2) { animation-delay: 0.15s; opacity: 0.5; }
+        .loader-trail:nth-child(3) { animation-delay: 0.3s; opacity: 0.7; }
+        .loader-trail:nth-child(4) { animation-delay: 0.45s; opacity: 0.9; }
+
+        @keyframes scan {
+            0% { left: -30%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes trail-pulse {
+            0%, 100% {
+                opacity: 0.2;
+                background: var(--border-light);
+            }
+            50% {
+                opacity: 1;
+                background: var(--accent-blue);
+            }
+        }
+
+        .loader-text {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+        }
+
+        /* 返回顶部按钮 - 侧边贴条 */
+        .back-to-top {
+            position: fixed;
+            right: 0;
+            bottom: 10rem;
+            transform: translateX(100%);
+            width: 32px;
+            height: 80px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-right: none;
+            border-radius: 6px 0 0 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .back-to-top svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            width: 90px;
+            background: rgba(59, 130, 246, 0.15);
+            border-color: var(--accent-blue);
+        }
+
+        .back-to-top:hover svg {
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+
+        .back-to-top::after {
+            content: "返回顶部";
+            position: absolute;
+            color: var(--accent-blue);
+            font-size: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .back-to-top:hover::after {
+            font-size: 12px;
+            opacity: 1;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 480px) {
+            .back-to-top {
+                bottom: 1rem;
+                width: 28px;
+                height: 60px;
+            }
+            .back-to-top:hover {
+                width: 80px;
+            }
+        }
+
         /* 网格背景 */
         .grid-bg {
             position: fixed;
@@ -428,6 +593,10 @@
             font-size: 0.85rem;
             color: var(--accent-green);
             transition: all 0.2s ease;
+        }
+
+        .project-latest-build {
+            cursor: pointer;
         }
 
         .project-latest-build:hover {
@@ -929,13 +1098,12 @@
             background: var(--bg-card);
             border: 2.5px solid var(--accent-blue);
             z-index: 1;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            transition: transform 0.25s ease;
         }
 
         .update-node.latest::before {
             background: var(--accent-green);
             border-color: var(--accent-green);
-            box-shadow: 0 0 14px rgba(16, 185, 129, 0.5);
         }
 
         .update-node:hover::before {
@@ -1806,6 +1974,18 @@
     <!-- 网格背景 -->
     <div class="grid-bg"></div>
 
+    <!-- 页面加载动画 -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-scanner"></div>
+        <div class="loader-trails">
+            <div class="loader-trail"></div>
+            <div class="loader-trail"></div>
+            <div class="loader-trail"></div>
+            <div class="loader-trail"></div>
+        </div>
+        <div class="loader-text">加载中...</div>
+    </div>
+
     <!-- 移动端抽屉按钮 (480px 以下) -->
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开导航菜单">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -2464,6 +2644,13 @@
                     <span class="project-latest-build-label">最新构建</span>
                     <span class="project-latest-build-version">${buildLabel}</span>
                 `;
+                // 点击滚动到更新树位置
+                latestBuildEl.onclick = () => {
+                    const updateTreeEl = document.getElementById(`update-tree-${projectId}`);
+                    if (updateTreeEl) {
+                        updateTreeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                };
             }
 
             section.classList.add('loading');
@@ -2485,31 +2672,52 @@
             sortedMajors.forEach((major, gi) => {
                 const versions = groups[major];
                 const isLatestGroup = gi === 0;
-                const versionCount = versions.length;
+
+                // 计算小版本（构建）数量：统计所有changes中有section的唯一section数量
+                const allSections = new Set();
+                versions.forEach(v => {
+                    if (v.changes) {
+                        v.changes.forEach(c => {
+                            if (c.section) allSections.add(c.section);
+                        });
+                    }
+                });
+                const buildCount = allSections.size || 1;
 
                 let headerTag = '';
                 if (isLatestGroup) headerTag = '最新大版本';
-                
+
+                // 获取最新构建版本号
+                let latestBuildSection = '';
+                if (versions.length > 0 && versions[0].changes) {
+                    const firstChangeWithSection = versions[0].changes.find(c => c.section);
+                    if (firstChangeWithSection) {
+                        latestBuildSection = firstChangeWithSection.section;
+                    }
+                }
+
                 html += `<div class="update-major-group${isLatestGroup ? '' : ' collapsed'}">`;
-                
+
                 // Group header
                 html += `<div class="update-major-header" onclick="toggleMajorGroup(this)">`;
                 html += `<span class="update-major-badge">R${major}</span>`;
-                html += `<span class="update-major-label">${headerTag || versionCount + ' 个版本'}</span>`;
+                html += `<span class="update-major-label">${headerTag || buildCount + ' 个构建'}</span>`;
                 html += `<span class="update-major-toggle">${isLatestGroup ? '\u2212' : '+'}</span>`;
                 html += `</div>`;
-                
+
                 // Versions body
                 html += `<div class="update-major-versions"${isLatestGroup ? ' style="max-height: 2000px;"' : ' style="max-height: 0; opacity: 0;"'}>`;
-                
+
                 versions.forEach((v, vi) => {
                     const isLatest = gi === 0 && vi === 0;
                     const nodeClass = isLatest ? 'update-node latest' : 'update-node';
-                    const shortVer = formatVersionShort(v.version);
+
+                    // 第一行显示：RX#0X（最新构建版本）
+                    const displayVersion = (vi === 0 && latestBuildSection) ? `R${major}${latestBuildSection}` : `R${major}`;
 
                     html += `<div class="${nodeClass}">`;
                     html += `<div class="update-node-header">`;
-                    html += `<span class="update-version-badge">${shortVer}</span>`;
+                    html += `<span class="update-version-badge">${displayVersion}</span>`;
                     html += `<span class="update-date">${v.date}</span>`;
                     if (v.tag === '最新') {
                         html += `<span class="update-tag latest-tag">最新</span>`;
@@ -2617,6 +2825,45 @@
                 }
             }, 150);
         });
+
+        // 页面加载完成隐藏加载动画
+        window.addEventListener('load', () => {
+            const pageLoader = document.getElementById('pageLoader');
+            if (pageLoader) {
+                pageLoader.classList.add('fade-out');
+                // 动画完成后移除元素
+                setTimeout(() => {
+                    pageLoader.remove();
+                }, 400);
+            }
+        });
+
+        // 返回顶部按钮逻辑
+        window.addEventListener('load', () => {
+            const backToTopBtn = document.getElementById('backToTop');
+            const mainContent = document.querySelector('.main-content');
+
+            if (mainContent && backToTopBtn) {
+                mainContent.addEventListener('scroll', () => {
+                    if (mainContent.scrollTop > 300) {
+                        backToTopBtn.classList.add('show');
+                    } else {
+                        backToTopBtn.classList.remove('show');
+                    }
+                });
+
+                backToTopBtn.addEventListener('click', () => {
+                    mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        });
     </script>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
 </body>
 </html>
