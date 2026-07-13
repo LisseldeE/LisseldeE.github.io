@@ -1001,6 +1001,128 @@
             line-height: 1.5;
         }
 
+        /* 模型支持板块 */
+        .model-support-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .model-support-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .model-support-group:hover {
+            border-color: var(--border-active);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .model-group-header {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .model-group-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .model-group-dot.supported {
+            background: var(--accent-green);
+        }
+
+        .model-group-dot.adapting {
+            background: var(--accent-orange);
+        }
+
+        .model-group-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .model-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .model-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .model-item:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+        }
+
+        .model-item.supported:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .model-item.adapting:hover {
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .model-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            flex-shrink: 0;
+        }
+
+        .model-status-dot.adapting {
+            background: var(--accent-orange);
+        }
+
+        .model-item-content {
+            flex: 1;
+        }
+
+        .model-item-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .model-item-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .model-support-note {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .note-text {
+            display: block;
+        }
+
         /* 使用指南卡片 */
         .usage-cards {
             display: grid;
@@ -1736,6 +1858,9 @@
             .features-grid {
                 grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             }
+            .model-support-container {
+                gap: 1rem;
+            }
         }
 
         @media (max-width: 900px) {
@@ -2107,6 +2232,48 @@
             .tech-tag {
                 font-size: 0.7rem;
                 padding: 0.2rem 0.5rem;
+            }
+
+            /* 模型支持板块 - 移动端适配 */
+            .model-support-container {
+                grid-template-columns: 1fr;
+                gap: 0.875rem;
+            }
+            .model-support-group {
+                padding: 1rem;
+            }
+            .model-group-header {
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.625rem;
+            }
+            .model-group-dot {
+                width: 6px;
+                height: 6px;
+            }
+            .model-group-title {
+                font-size: 0.88rem;
+            }
+            .model-list {
+                gap: 0.5rem;
+            }
+            .model-item {
+                padding: 0.625rem;
+                gap: 0.5rem;
+            }
+            .model-status-dot {
+                width: 5px;
+                height: 5px;
+            }
+            .model-item-name {
+                font-size: 0.85rem;
+            }
+            .model-item-desc {
+                font-size: 0.75rem;
+            }
+            .model-support-note {
+                margin-top: 0.75rem;
+                padding: 0.625rem;
+                font-size: 0.8rem;
             }
 
             .download-section {
@@ -2636,18 +2803,21 @@
             <!-- 图片展示 -->
             <div class="image-gallery-section">
                 <h2 class="section-title">界面截图</h2>
-                <div class="image-gallery single-image" id="gallery-tokenpeek">
+                <div class="image-gallery" id="gallery-tokenpeek">
                     <div class="gallery-thumbnails">
                         <div class="gallery-thumb active" data-index="0">
-                            <img src="images/webp/4-1.webp" alt="界面截图">
+                            <img src="images/webp/4-1.webp" alt="欢迎向导">
+                        </div>
+                        <div class="gallery-thumb" data-index="1">
+                            <img src="images/webp/4-2.webp" alt="监控界面">
                         </div>
                     </div>
                     <div class="gallery-main">
-                        <img class="gallery-main-image current" src="images/webp/4-1.webp" alt="界面截图">
-                        <img class="gallery-main-image next hidden" src="images/webp/4-1.webp" alt="">
-                        <div class="gallery-counter">1 / 1</div>
+                        <img class="gallery-main-image current" src="images/webp/4-1.webp" alt="欢迎向导">
+                        <img class="gallery-main-image next hidden" src="images/webp/4-2.webp" alt="">
+                        <div class="gallery-counter">1 / 2</div>
                         <div class="gallery-overlay">
-                            <div class="gallery-caption">TokenPeek 界面截图</div>
+                            <div class="gallery-caption">欢迎向导</div>
                         </div>
                     </div>
                 </div>
@@ -2673,12 +2843,12 @@
                         <div class="feature-desc">根据余额状态自动切换图标颜色（绿色充足、黄色注意、红色告急）</div>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-title">🔑 API Key 管理</div>
-                        <div class="feature-desc">支持修改和验证 API Key，首次启动引导配置，支持配置导入导出</div>
+                        <div class="feature-title">🧙 欢迎向导</div>
+                        <div class="feature-desc">首次启动引导配置模型平台和 API Key，轻松完成初始化设置</div>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-title">⚙️ 自定义设置</div>
-                        <div class="feature-desc">支持 1/5/15/30 分钟刷新间隔设置，支持自定义余额预警阈值</div>
+                        <div class="feature-title">⚙️ 模型配置</div>
+                        <div class="feature-desc">支持配置多个模型平台（DeepSeek、Kimi、StepFun），自定义模型信息</div>
                     </div>
                     <div class="feature-card">
                         <div class="feature-title">🌐 多语言支持</div>
@@ -2687,6 +2857,67 @@
                     <div class="feature-card">
                         <div class="feature-title">🛡️ 数据安全</div>
                         <div class="feature-desc">所有配置和缓存数据存储在本地（~/.TokenPeek/），无云端上传</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模型支持板块 -->
+            <div class="features-section">
+                <h2 class="section-title">模型支持</h2>
+                <div class="model-support-container">
+                    <div class="model-support-group">
+                        <div class="model-group-header">
+                            <span class="model-group-dot supported"></span>
+                            <span class="model-group-title">已支持的模型</span>
+                        </div>
+                        <div class="model-list">
+                            <div class="model-item supported">
+                                <span class="model-status-dot"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name">DeepSeek</div>
+                                    <div class="model-item-desc">深度求索 AI 模型</div>
+                                </div>
+                            </div>
+                            <div class="model-item supported">
+                                <span class="model-status-dot"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name">Kimi</div>
+                                    <div class="model-item-desc">Moonshot AI 模型</div>
+                                </div>
+                            </div>
+                            <div class="model-item supported">
+                                <span class="model-status-dot"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name">StepFun</div>
+                                    <div class="model-item-desc">阶跃星辰 AI 模型</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-support-group">
+                        <div class="model-group-header">
+                            <span class="model-group-dot adapting"></span>
+                            <span class="model-group-title">正在适配的模型</span>
+                        </div>
+                        <div class="model-list">
+                            <div class="model-item adapting">
+                                <span class="model-status-dot adapting"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name">智谱AI</div>
+                                    <div class="model-item-desc">GLM 系列模型</div>
+                                </div>
+                            </div>
+                            <div class="model-item adapting">
+                                <span class="model-status-dot adapting"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name">MiniMax</div>
+                                    <div class="model-item-desc">海螺 AI 模型</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-support-note">
+                            <span class="note-text">部分平台暂未提供官方余额查询API端点，我们正在积极寻找解决方案</span>
+                        </div>
                     </div>
                 </div>
             </div>

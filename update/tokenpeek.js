@@ -8,6 +8,31 @@ window.__UPDATE_TREE__['tokenpeek'] = {
       "tag": "首发",
       "changes": [
         {
+          "type": "feature",
+          "text": "新增了模型配置窗口，用户可以在其中配置模型信息",
+          "section": "#03"
+        },
+        {
+          "type": "feature",
+          "text": "添加了欢迎向导",
+          "section": "#03"
+        },
+        {
+          "type": "improvement",
+          "text": "优化界面布局与交互体验",
+          "section": "#03"
+        },
+        {
+          "type": "feature",
+          "text": "新增Kimi、StepFun模型支持",
+          "section": "#03"
+        },
+        {
+          "type": "improvement",
+          "text": "暂时移除不支持模型",
+          "section": "#03"
+        },
+        {
           "type": "improvement",
           "text": "修改了界面显示内容",
           "section": "#02"
