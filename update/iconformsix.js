@@ -8,6 +8,11 @@ window.__UPDATE_TREE__['iconformsix'] = {
       "tag": "首发",
       "changes": [
         {
+          "type": "improvement",
+          "text": "优化了部分细节",
+          "section": "#02"
+        },
+        {
           "type": "feature",
           "text": "初始版本发布",
           "section": "#01"

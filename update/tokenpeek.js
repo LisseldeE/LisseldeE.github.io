@@ -8,6 +8,11 @@ window.__UPDATE_TREE__['tokenpeek'] = {
       "tag": "首发",
       "changes": [
         {
+          "type": "bugfix",
+          "text": "修复了默认auto语言配置导致的界面显示错误",
+          "section": "#04"
+        },
+        {
           "type": "feature",
           "text": "新增了模型配置窗口，用户可以在其中配置模型信息",
           "section": "#03"
