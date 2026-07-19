@@ -8,6 +8,26 @@ window.__UPDATE_TREE__['lansyncbox'] = {
       "tag": "最新",
       "changes": [
         {
+          "type": "improvement",
+          "text": "优化了界面显示效果",
+          "section": "#07"
+        },
+        {
+          "type": "improvement",
+          "text": "优化同步界面部分控件显示效果",
+          "section": "#07"
+        },
+        {
+          "type": "fix",
+          "text": "修复了并发传输时文件损坏的问题",
+          "section": "#07"
+        },
+        {
+          "type": "fix",
+          "text": "修复了传输时断开连接程序崩溃的问题",
+          "section": "#07"
+        },
+        {
           "type": "note",
           "text": "发布版本v6.6.0.0",
           "section": "#06"
