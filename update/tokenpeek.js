@@ -5,10 +5,20 @@ window.__UPDATE_TREE__['tokenpeek'] = {
     {
       "version": "R1",
       "date": "2026.7.12",
-      "tag": "首发",
+      "tag": "最新",
       "changes": [
         {
-          "type": "bugfix",
+          "type": "improvement",
+          "text": "优化了图表显示逻辑",
+          "section": "#05"
+        },
+        {
+          "type": "improvement",
+          "text": "优化了主界面显示效果",
+          "section": "#05"
+        },
+        {
+          "type": "fix",
           "text": "修复了默认auto语言配置导致的界面显示错误",
           "section": "#04"
         },
