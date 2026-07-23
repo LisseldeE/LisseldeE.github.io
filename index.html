@@ -2060,6 +2060,53 @@
         }
 
         /* ---- 状态信息 ---- */
+        .update-tree-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            gap: 1rem;
+        }
+
+        .update-tree-scanner {
+            width: 80px;
+            height: 8px;
+            background: #1a1a24;
+            border-radius: 2px;
+            position: relative;
+            transform: skewX(-20deg);
+            overflow: hidden;
+        }
+
+        .update-tree-scanner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(59, 130, 246, 0.8) 50%,
+                transparent 100%
+            );
+            animation: update-tree-scan 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes update-tree-scan {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(300%);
+            }
+        }
+
+        .update-tree-loading-text {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
         .update-tree-empty,
         .update-tree-error {
             text-align: center;
@@ -3159,7 +3206,10 @@
             <div class="features-section update-tree-section" id="update-tree-lansyncbox">
                 <h2 class="section-title">📋 更新树</h2>
                 <div class="update-tree-container" id="update-container-lansyncbox">
-                    <div class="update-tree-empty">加载中...</div>
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text">加载中...</div>
+                    </div>
                 </div>
             </div>
                 </section>
@@ -3276,7 +3326,10 @@
             <div class="features-section update-tree-section" id="update-tree-syncgui">
                 <h2 class="section-title">📋 更新树</h2>
                 <div class="update-tree-container" id="update-container-syncgui">
-                    <div class="update-tree-empty">加载中...</div>
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text">加载中...</div>
+                    </div>
                 </div>
             </div>
                 </section>
@@ -3459,7 +3512,10 @@
             <div class="features-section update-tree-section" id="update-tree-tokenpeek">
                 <h2 class="section-title">📋 更新树</h2>
                 <div class="update-tree-container" id="update-container-tokenpeek">
-                    <div class="update-tree-empty">加载中...</div>
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text">加载中...</div>
+                    </div>
                 </div>
             </div>
                 </section>
@@ -3575,7 +3631,10 @@
             <div class="features-section update-tree-section" id="update-tree-deskhelper">
                 <h2 class="section-title">📋 更新树</h2>
                 <div class="update-tree-container" id="update-container-deskhelper">
-                    <div class="update-tree-empty">加载中...</div>
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text">加载中...</div>
+                    </div>
                 </div>
             </div>
                 </section>
@@ -3677,17 +3736,20 @@
             <div class="features-section update-tree-section" id="update-tree-iconformsix">
                 <h2 class="section-title">更新树</h2>
                 <div class="update-tree-container" id="update-container-iconformsix">
-                    <div class="update-tree-empty">加载中...</div>
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text">加载中...</div>
+                    </div>
                 </div>
             </div>
                 </section>
     </main>
 
-    <script src="update/lansyncbox.js"></script>
-    <script src="update/syncgui.js"></script>
-    <script src="update/deskhelper.js"></script>
-    <script src="update/tokenpeek.js"></script>
-    <script src="update/iconformsix.js"></script>
+    <script defer src="update/lansyncbox.js"></script>
+    <script defer src="update/syncgui.js"></script>
+    <script defer src="update/deskhelper.js"></script>
+    <script defer src="update/tokenpeek.js"></script>
+    <script defer src="update/iconformsix.js"></script>
 
     <script>
         // 导航切换逻辑
@@ -3933,11 +3995,36 @@
             const section = document.getElementById(`update-tree-${projectId}`);
             if (!container) return;
 
+            // 检查数据是否已加载
             const data = (window.__UPDATE_TREE__ || {})[projectId];
             if (!data || !data.versions || data.versions.length === 0) {
-                container.innerHTML = '<div class="update-tree-empty">暂无更新记录</div>';
+                // 数据还没加载，保持加载动画，稍后重试
+                const checkInterval = setInterval(() => {
+                    const retryData = (window.__UPDATE_TREE__ || {})[projectId];
+                    if (retryData && retryData.versions && retryData.versions.length > 0) {
+                        clearInterval(checkInterval);
+                        renderUpdateTree(projectId, retryData);
+                    }
+                }, 100);
+
+                // 5秒后超时，显示空状态
+                setTimeout(() => {
+                    clearInterval(checkInterval);
+                    const retryData = (window.__UPDATE_TREE__ || {})[projectId];
+                    if (!retryData || !retryData.versions || retryData.versions.length === 0) {
+                        container.innerHTML = '<div class="update-tree-empty">暂无更新记录</div>';
+                    }
+                }, 5000);
                 return;
             }
+
+            renderUpdateTree(projectId, data);
+        }
+
+        function renderUpdateTree(projectId, data) {
+            const container = document.getElementById(`update-container-${projectId}`);
+            const section = document.getElementById(`update-tree-${projectId}`);
+            if (!container) return;
 
             // 更新项目头部的最新构建标签
             const latestBuildEl = document.getElementById(`latest-build-${projectId}`);
