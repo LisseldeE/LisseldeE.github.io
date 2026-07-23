@@ -9,6 +9,21 @@ window.__UPDATE_TREE__['tokenpeek'] = {
       "changes": [
         {
           "type": "improvement",
+          "text": "重构了消耗计算逻辑",
+          "section": "#06"
+        },
+        {
+          "type": "feature",
+          "text": "新增用量百分比显示",
+          "section": "#06"
+        },
+        {
+          "type": "fix",
+          "text": "修复了已知的问题",
+          "section": "#06"
+        },
+        {
+          "type": "improvement",
           "text": "优化了图表显示逻辑",
           "section": "#05"
         },
