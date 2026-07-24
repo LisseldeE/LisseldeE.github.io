@@ -1117,6 +1117,55 @@
             letter-spacing: -0.01em;
         }
 
+        .project-latest-build-loading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-latest-build-spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-top-color: var(--accent-green);
+            border-radius: 50%;
+            animation: latest-build-spin 0.8s linear infinite;
+        }
+
+        @keyframes latest-build-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .project-latest-build-loading-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .project-latest-build-retry {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 6px;
+            color: var(--accent-blue);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .project-latest-build-retry:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .project-latest-build-retry svg {
+            width: 12px;
+            height: 12px;
+        }
+
         .project-links {
             display: flex;
             gap: 1rem;
@@ -2052,6 +2101,15 @@
             background: rgba(255, 255, 255, 0.03);
         }
 
+        .update-change-type.update {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .update-change-type.other {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
         .update-change-text {
             flex: 1;
         }
@@ -2300,6 +2358,26 @@
             padding: 2rem;
             color: var(--text-muted);
             font-size: 0.88rem;
+        }
+
+        .update-tree-retry {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .update-tree-retry:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
         .update-tree-error {
@@ -3238,7 +3316,12 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
-                            <div class="project-latest-build" id="latest-build-lansyncbox"></div>
+                            <div class="project-latest-build" id="latest-build-lansyncbox">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text">获取中...</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3422,7 +3505,12 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
-                            <div class="project-latest-build" id="latest-build-syncgui"></div>
+                            <div class="project-latest-build" id="latest-build-syncgui">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text">获取中...</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3542,7 +3630,12 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
-                            <div class="project-latest-build" id="latest-build-tokenpeek"></div>
+                            <div class="project-latest-build" id="latest-build-tokenpeek">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text">获取中...</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3728,7 +3821,12 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
-                            <div class="project-latest-build" id="latest-build-deskhelper"></div>
+                            <div class="project-latest-build" id="latest-build-deskhelper">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text">获取中...</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3847,7 +3945,12 @@
                                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                                 GitHub 仓库
                             </a>
-                            <div class="project-latest-build" id="latest-build-iconformsix"></div>
+                            <div class="project-latest-build" id="latest-build-iconformsix">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text">获取中...</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3987,11 +4090,223 @@
         </section>
     </main>
 
-    <script defer src="update/lansyncbox.js"></script>
-    <script defer src="update/syncgui.js"></script>
-    <script defer src="update/deskhelper.js"></script>
-    <script defer src="update/tokenpeek.js"></script>
-    <script defer src="update/iconformsix.js"></script>
+    <!-- 更新树数据已嵌入主网页，使用远程CHANGELOG.md动态获取 -->
+
+    <script>
+        // ========== CHANGELOG 解析和获取工具 ==========
+        window.ChangelogParser = {
+            /**
+             * 解析 CHANGELOG.md 内容
+             * @param {string} markdown - CHANGELOG.md 的原始内容
+             * @returns {Object} 解析后的版本数据
+             */
+            parse(markdown) {
+                const lines = markdown.split('\n');
+                const versions = [];
+                let currentVersion = null;
+                let currentChange = null;
+
+                for (let line of lines) {
+                    line = line.trim();
+                    if (!line) continue;
+
+                    // 版本标题: ## 2026.6.29 R6
+                    const versionMatch = line.match(/^##\s+(\d{4}\.\d{1,2}\.\d{1,2})\s+R(\d+)/);
+                    if (versionMatch) {
+                        if (currentVersion) {
+                            versions.push(currentVersion);
+                        }
+                        currentVersion = {
+                            version: `R${versionMatch[2]}`,
+                            date: versionMatch[1],
+                            tag: versions.length === 0 ? '最新' : '',
+                            changes: []
+                        };
+                        currentChange = null;
+                        continue;
+                    }
+
+                    // 更新号: ### #07 或 ### #06 发布版本v6.6.0.0
+                    const changeMatch = line.match(/^###\s+#(\d+(?:\.\d+)?)(?:\s+(.+))?/);
+                    if (changeMatch && currentVersion) {
+                        currentChange = {
+                            section: `#${changeMatch[1]}`,
+                            note: changeMatch[2] || ''
+                        };
+                        continue;
+                    }
+
+                    // 更新内容: - 关键词：内容
+                    const itemMatch = line.match(/^- (新增|优化|修复|更新|修改|添加)：(.+)/);
+                    if (itemMatch && currentVersion) {
+                        const typeMap = {
+                            '新增': 'feature',
+                            '优化': 'improvement',
+                            '修复': 'fix',
+                            '更新': 'update',
+                            '修改': 'improvement',
+                            '添加': 'feature'
+                        };
+                        
+                        currentVersion.changes.push({
+                            type: typeMap[itemMatch[1]] || 'other',
+                            text: itemMatch[2],
+                            section: currentChange ? currentChange.section : '#00'
+                        });
+                    }
+                }
+
+                // 添加最后一个版本
+                if (currentVersion) {
+                    versions.push(currentVersion);
+                }
+
+                return { versions };
+            },
+
+            /**
+             * 从远程获取 CHANGELOG.md
+             * @param {string} project - 项目名称
+             * @param {string} url - GitHub raw URL
+             * @returns {Promise<Object>} 解析后的数据
+             */
+            async fetch(project, url) {
+                // 检查缓存（仅作为降级使用）
+                const cacheKey = `changelog_${project}`;
+                const cacheTimeKey = `changelog_${project}_time`;
+                const cached = localStorage.getItem(cacheKey);
+                const cacheTime = localStorage.getItem(cacheTimeKey);
+
+                // 使用 CORS 代理获取
+                const corsProxies = [
+                    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+                    `https://corsproxy.io/?${encodeURIComponent(url)}`
+                ];
+
+                for (const proxyUrl of corsProxies) {
+                    try {
+                        const response = await fetch(proxyUrl);
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+
+                        const markdown = await response.text();
+                        const data = this.parse(markdown);
+                        
+                        // 缓存数据（作为备用）
+                        localStorage.setItem(cacheKey, JSON.stringify(data));
+                        localStorage.setItem(cacheTimeKey, Date.now().toString());
+                        
+                        return data;
+                    } catch (error) {
+                        console.error(`Proxy ${proxyUrl} failed:`, error);
+                        continue;
+                    }
+                }
+
+                // 所有代理都失败了，尝试使用缓存
+                if (cached) {
+                    console.log(`Using cached data for ${project}`);
+                    try {
+                        return JSON.parse(cached);
+                    } catch (e) {
+                        console.error('Cache parse error:', e);
+                    }
+                }
+
+                throw new Error('所有代理都失败了，且无缓存数据');
+            },
+
+            /**
+             * 获取项目更新数据（带降级处理）
+             * @param {string} project - 项目名称
+             * @param {string} url - GitHub raw URL
+             * @returns {Promise<Object|null>} 数据或null
+             */
+            async getData(project, url) {
+                try {
+                    const data = await this.fetch(project, url);
+                    return data;
+                } catch (error) {
+                    console.error(`Failed to fetch changelog for ${project}:`, error);
+                    return null;
+                }
+            }
+        };
+
+        // 重新获取更新日志
+        async function retryFetchChangelog(project) {
+            const urls = {
+                'lansyncbox': 'https://raw.githubusercontent.com/LisseldeE/LANSyncBox/main/CHANGELOG.md',
+                'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
+                'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
+                'deskhelpergui': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
+                'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md'
+            };
+
+            const url = urls[project];
+            if (!url) return;
+
+            // 显示加载动画
+            const latestBuildEl = document.getElementById(`latest-build-${project}`);
+            if (latestBuildEl) {
+                latestBuildEl.innerHTML = `
+                    <div class="project-latest-build-loading">
+                        <div class="project-latest-build-spinner"></div>
+                        <span class="project-latest-build-loading-text">获取中...</span>
+                    </div>
+                `;
+            }
+
+            const container = document.getElementById(`update-container-${project}`);
+            if (container) {
+                container.innerHTML = `
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                    </div>
+                `;
+            }
+
+            // 重新获取数据
+            const data = await ChangelogParser.getData(project, url);
+            
+            if (data) {
+                window.__UPDATE_TREE__ = window.__UPDATE_TREE__ || {};
+                window.__UPDATE_TREE__[project] = data;
+                renderLatestBuild(project, data);
+                renderUpdateTree(project, data);
+            } else {
+                // 获取失败
+                if (latestBuildEl) {
+                    latestBuildEl.innerHTML = `
+                        <span class="project-latest-build-label" style="color: var(--accent-blue); display: flex; align-items: center; gap: 0.375rem;">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                            </svg>
+                            重新获取
+                        </span>
+                    `;
+                    latestBuildEl.style.cursor = 'pointer';
+                    latestBuildEl.onclick = () => retryFetchChangelog(project);
+                }
+                
+                if (container) {
+                    container.innerHTML = `
+                        <div class="update-tree-error">
+                            <div>获取更新记录失败</div>
+                            <div class="update-tree-retry" onclick="retryFetchChangelog('${project}')">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                                <span>重新获取</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+    </script>
 
     <script>
         // 导航切换逻辑
@@ -4245,7 +4560,9 @@
         const typeLabels = {
             'feature': '新增',
             'improvement': '优化',
-            'fix': '修复'
+            'fix': '修复',
+            'update': '更新',
+            'other': '其他'
         };
 
         function formatVersionShort(v) {
@@ -4282,33 +4599,116 @@
 
         function loadUpdateTree(projectId) {
             const container = document.getElementById(`update-container-${projectId}`);
-            const section = document.getElementById(`update-tree-${projectId}`);
             if (!container) return;
+
+            const projectUrls = {
+                'lansyncbox': 'https://raw.githubusercontent.com/LisseldeE/LANSyncBox/main/CHANGELOG.md',
+                'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
+                'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
+                'deskhelpergui': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
+                'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md'
+            };
+
+            const url = projectUrls[projectId];
+            if (!url) return;
 
             // 检查数据是否已加载
             const data = (window.__UPDATE_TREE__ || {})[projectId];
-            if (!data || !data.versions || data.versions.length === 0) {
-                // 数据还没加载，保持加载动画，稍后重试
-                const checkInterval = setInterval(() => {
-                    const retryData = (window.__UPDATE_TREE__ || {})[projectId];
-                    if (retryData && retryData.versions && retryData.versions.length > 0) {
-                        clearInterval(checkInterval);
-                        renderUpdateTree(projectId, retryData);
-                    }
-                }, 100);
-
-                // 5秒后超时，显示空状态
-                setTimeout(() => {
-                    clearInterval(checkInterval);
-                    const retryData = (window.__UPDATE_TREE__ || {})[projectId];
-                    if (!retryData || !retryData.versions || retryData.versions.length === 0) {
-                        container.innerHTML = '<div class="update-tree-empty">暂无更新记录</div>';
-                    }
-                }, 5000);
+            if (data && data.versions && data.versions.length > 0) {
+                renderUpdateTree(projectId, data);
                 return;
             }
 
-            renderUpdateTree(projectId, data);
+            // 显示加载动画
+            container.innerHTML = `
+                <div class="update-tree-loading">
+                    <div class="update-tree-scanner"></div>
+                </div>
+            `;
+
+            // 异步获取数据
+            (async () => {
+                const fetchedData = await ChangelogParser.getData(projectId, url);
+                
+                if (fetchedData) {
+                    window.__UPDATE_TREE__ = window.__UPDATE_TREE__ || {};
+                    window.__UPDATE_TREE__[projectId] = fetchedData;
+                    renderUpdateTree(projectId, fetchedData);
+                    renderLatestBuild(projectId, fetchedData);
+                } else {
+                    // 获取失败
+                    container.innerHTML = `
+                        <div class="update-tree-error">
+                            <div>获取更新记录失败</div>
+                            <div class="update-tree-retry" onclick="retryFetchChangelog('${projectId}')">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                                <span>重新获取</span>
+                            </div>
+                        </div>
+                    `;
+
+                    const latestBuildEl = document.getElementById(`latest-build-${projectId}`);
+                    if (latestBuildEl) {
+                        latestBuildEl.innerHTML = `
+                            <span class="project-latest-build-label" style="color: var(--accent-blue); display: flex; align-items: center; gap: 0.375rem;">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                                重新获取
+                            </span>
+                        `;
+                        latestBuildEl.style.cursor = 'pointer';
+                        latestBuildEl.onclick = () => retryFetchChangelog(projectId);
+                    }
+                }
+            })();
+        }
+
+        function renderLatestBuild(projectId, data) {
+            const latestBuildEl = document.getElementById(`latest-build-${projectId}`);
+            if (!latestBuildEl) return;
+
+            // 数据不存在或为空
+            if (!data || !data.versions || data.versions.length === 0) {
+                latestBuildEl.innerHTML = `
+                    <span class="project-latest-build-label" style="color: var(--accent-blue); display: flex; align-items: center; gap: 0.375rem;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                        重新获取
+                    </span>
+                `;
+                latestBuildEl.style.cursor = 'pointer';
+                latestBuildEl.onclick = () => retryFetchChangelog(projectId);
+                return;
+            }
+
+            const latestVersion = data.versions[0];
+            let latestSection = '';
+            if (latestVersion.changes && latestVersion.changes.length > 0) {
+                const firstChangeWithSection = latestVersion.changes.find(c => c.section);
+                if (firstChangeWithSection) {
+                    latestSection = firstChangeWithSection.section;
+                }
+            }
+
+            const majorVersion = latestVersion.version;
+            const buildLabel = latestSection ? `${majorVersion}${latestSection}` : majorVersion;
+
+            latestBuildEl.innerHTML = `
+                <span class="project-latest-build-label">最新构建</span>
+                <span class="project-latest-build-version">${buildLabel}</span>
+            `;
+            
+            latestBuildEl.style.cursor = 'pointer';
+            latestBuildEl.onclick = () => {
+                const updateTreeEl = document.getElementById(`update-tree-${projectId}`);
+                if (updateTreeEl) {
+                    updateTreeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
         }
 
         function renderUpdateTree(projectId, data) {
@@ -4317,34 +4717,7 @@
             if (!container) return;
 
             // 更新项目头部的最新构建标签
-            const latestBuildEl = document.getElementById(`latest-build-${projectId}`);
-            if (latestBuildEl && data.versions.length > 0) {
-                const latestVersion = data.versions[0];
-                // 提取最新小版本标签
-                let latestSection = '';
-                if (latestVersion.changes && latestVersion.changes.length > 0) {
-                    const firstChangeWithSection = latestVersion.changes.find(c => c.section);
-                    if (firstChangeWithSection) {
-                        latestSection = firstChangeWithSection.section;
-                    }
-                }
-
-                // 构建版本字符串：R6#05（紧凑格式）
-                const majorVersion = latestVersion.version; // R6, R11等
-                const buildLabel = latestSection ? `${majorVersion}${latestSection}` : majorVersion;
-
-                latestBuildEl.innerHTML = `
-                    <span class="project-latest-build-label">最新构建</span>
-                    <span class="project-latest-build-version">${buildLabel}</span>
-                `;
-                // 点击滚动到更新树位置
-                latestBuildEl.onclick = () => {
-                    const updateTreeEl = document.getElementById(`update-tree-${projectId}`);
-                    if (updateTreeEl) {
-                        updateTreeEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                };
-            }
+            renderLatestBuild(projectId, data);
 
             section.classList.add('loading');
 
