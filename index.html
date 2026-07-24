@@ -1972,29 +1972,6 @@
             padding-bottom: 0;
         }
 
-        .update-node::before {
-            content: '';
-            position: absolute;
-            left: -1.5rem;
-            top: 0.4rem;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            background: var(--bg-card);
-            border: 2.5px solid var(--accent-blue);
-            z-index: 1;
-            transition: transform 0.25s ease;
-        }
-
-        .update-node.latest::before {
-            background: var(--accent-green);
-            border-color: var(--accent-green);
-        }
-
-        .update-node:hover::before {
-            transform: scale(1.35);
-        }
-
         /* ---- 节点头部 ---- */
         .update-node-header {
             display: flex;
@@ -2694,11 +2671,6 @@
         }
         .update-node {
             padding: 0 0 1.25rem 1rem;
-        }
-        .update-node::before {
-            width: 9px;
-            height: 9px;
-            left: -1.1rem;
         }
         .update-version-badge {
             font-size: 0.78rem;
