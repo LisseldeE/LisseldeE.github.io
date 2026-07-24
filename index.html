@@ -4179,12 +4179,16 @@
 
                 // 使用 CORS 代理获取
                 const corsProxies = [
+                    // CORS代理（更稳定）
+                    `https://corsproxy.io/?${encodeURIComponent(url)}`,
                     `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-                    `https://corsproxy.io/?${encodeURIComponent(url)}`
+                    // 直接访问GitHub（不稳定，放最后）
+                    url
                 ];
 
                 for (const proxyUrl of corsProxies) {
                     try {
+                        console.log(`Trying ${proxyUrl}`);
                         const response = await fetch(proxyUrl);
 
                         if (!response.ok) {
@@ -4198,6 +4202,7 @@
                         localStorage.setItem(cacheKey, JSON.stringify(data));
                         localStorage.setItem(cacheTimeKey, Date.now().toString());
                         
+                        console.log(`Successfully fetched ${project} changelog`);
                         return data;
                     } catch (error) {
                         console.error(`Proxy ${proxyUrl} failed:`, error);
@@ -4241,7 +4246,7 @@
                 'lansyncbox': 'https://raw.githubusercontent.com/LisseldeE/LANSyncBox/main/CHANGELOG.md',
                 'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
                 'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
-                'deskhelpergui': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
+                'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
                 'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md'
             };
 
@@ -4605,7 +4610,7 @@
                 'lansyncbox': 'https://raw.githubusercontent.com/LisseldeE/LANSyncBox/main/CHANGELOG.md',
                 'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
                 'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
-                'deskhelpergui': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
+                'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
                 'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md'
             };
 
