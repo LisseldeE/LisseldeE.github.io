@@ -4065,6 +4065,29 @@
     <!-- 更新树数据已嵌入主网页，使用远程CHANGELOG.md动态获取 -->
 
     <script>
+        // ========== 会话检测：关闭页面重新加入时强制刷新 ==========
+        (function() {
+            const SESSION_KEY = 'portfolio_session_active';
+
+            // 检查是否是新会话（关闭页面后重新打开）
+            if (!sessionStorage.getItem(SESSION_KEY)) {
+                // 新会话，清除所有 changelog 缓存
+                console.log('新会话检测到，清除旧缓存...');
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('changelog_')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                console.log(`已清除 ${keysToRemove.length} 个缓存项`);
+
+                // 标记会话为活跃
+                sessionStorage.setItem(SESSION_KEY, 'true');
+            }
+        })();
+
         // ========== CHANGELOG 解析和获取工具 ==========
         window.ChangelogParser = {
             /**
@@ -4149,13 +4172,15 @@
                 const cached = localStorage.getItem(cacheKey);
                 const cacheTime = localStorage.getItem(cacheTimeKey);
 
-                // 使用 CORS 代理获取
+                // 使用 CORS 代理获取，添加时间戳绕过缓存
+                const timestamp = Date.now();
+                const urlWithTimestamp = `${url}?t=${timestamp}`;
                 const corsProxies = [
                     // CORS代理（更稳定）
-                    `https://corsproxy.io/?${encodeURIComponent(url)}`,
-                    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+                    `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
+                    `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`,
                     // 直接访问GitHub（不稳定，放最后）
-                    url
+                    urlWithTimestamp
                 ];
 
                 for (const proxyUrl of corsProxies) {
@@ -4224,6 +4249,13 @@
 
             const url = urls[project];
             if (!url) return;
+
+            // 清除该项目的缓存，确保获取最新数据
+            const cacheKey = `changelog_${project}`;
+            const cacheTimeKey = `changelog_${project}_time`;
+            localStorage.removeItem(cacheKey);
+            localStorage.removeItem(cacheTimeKey);
+            console.log(`已清除 ${project} 的缓存`);
 
             // 显示加载动画
             const latestBuildEl = document.getElementById(`latest-build-${project}`);
@@ -4431,7 +4463,7 @@
 
         // 键盘导航
         document.addEventListener('keydown', (e) => {
-            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix', 'tools'];
+            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix'];
             const currentIndex = projectOrder.indexOf(currentProject);
 
             if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
@@ -4517,7 +4549,7 @@
             if (Math.abs(diffX) < Math.abs(diffY) * 0.8) return;
             if (Math.abs(diffX) < 50) return;
 
-            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix', 'tools'];
+            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix'];
             const currentIndex = projectOrder.indexOf(currentProject);
 
             if (diffX > 0) {
