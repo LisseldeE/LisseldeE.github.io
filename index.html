@@ -1744,6 +1744,52 @@
             font-size: 0.9rem;
         }
 
+        .command-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .command-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .command-item-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            padding: 0.15em 0.5em;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            width: 14em;
+        }
+
+        .command-item-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .command-item-desc code {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1em 0.3em;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82em;
+            color: var(--accent-cyan);
+        }
+
         /* 技术栈标签 */
         .tech-tags {
             display: flex;
@@ -3062,7 +3108,7 @@
             </div>
             <div class="nav-home-stats">
                 <div class="nav-home-stat">
-                    <span class="nav-home-stat-value">5</span>
+                    <span class="nav-home-stat-value">6</span>
                     <span class="nav-home-stat-label">公开项目</span>
                 </div>
                 <div class="nav-home-stat-divider"></div>
@@ -3127,6 +3173,16 @@
                     <div class="nav-item-content">
                         <div class="nav-item-name">IconForMsix</div>
                         <div class="nav-item-desc">MSIX图标集生成</div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-project="nexusterminal">
+                    <div class="nav-item-icon">
+                        <img src="images/icon/Nexus%20Terminal.ico" alt="Nexus Terminal">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">Nexus Terminal</div>
+                        <div class="nav-item-desc">终端辅助工具集</div>
                     </div>
                 </div>
             </nav>
@@ -3243,6 +3299,21 @@
                             <div class="home-project-tags">
                                 <span class="home-project-tag">图标生成</span>
                                 <span class="home-project-tag">批量处理</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-project-card" data-project="nexusterminal">
+                        <div class="home-project-icon">
+                            <img src="images/icon/Nexus%20Terminal.ico" alt="Nexus Terminal">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">Nexus Terminal <span class="home-project-category developer">开发者工具</span></h3>
+                            <p class="home-project-desc">终端辅助工具集，隧道、服务器、端口管理一键完成</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag">隧道服务</span>
+                                <span class="home-project-tag">端口管理</span>
+                                <span class="home-project-tag">自定义命令</span>
                             </div>
                         </div>
                     </div>
@@ -4002,7 +4073,7 @@
 
             <!-- 更新树 -->
             <div class="features-section update-tree-section" id="update-tree-iconformsix">
-                <h2 class="section-title">更新树</h2>
+                <h2 class="section-title">📋 更新树</h2>
                 <div class="update-tree-container" id="update-container-iconformsix">
                     <div class="update-tree-loading">
                         <div class="update-tree-scanner"></div>
@@ -4011,6 +4082,147 @@
                 </div>
             </div>
                 </section>
+
+        <!-- Nexus Terminal 项目页面 -->
+        <section class="project-page" id="nexusterminal">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="images/icon/Nexus%20Terminal.ico" alt="Nexus Terminal">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">Nexus Terminal</h1>
+                        <p class="project-subtitle">轻量级终端辅助工具，隧道、服务器、端口管理、下载等命令一键完成</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/Nexus-Terminal" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                GitHub 仓库
+                            </a>
+                            <div class="project-latest-build" id="latest-build-nexusterminal">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/Nexus-Terminal/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/Nexus-Terminal/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-nexusterminal">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="images/webp/6-1.webp" alt="Nexus Terminal 交互模式">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="images/webp/6-1.webp" alt="Nexus Terminal 交互模式">
+                        <img class="gallery-main-image next hidden" src="images/webp/6-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption">Nexus Terminal 交互模式</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 命令参考 -->
+            <div class="features-section">
+                <h2 class="section-title">命令参考</h2>
+                <div class="usage-card">
+                    <div class="command-list">
+                        <div class="command-item">
+                            <span class="command-item-code">nt u &lt;port|url&gt;</span>
+                            <span class="command-item-desc">建立 Cloudflare 隧道，暴露本地端口，支持 IPv4/IPv6</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt url &lt;url&gt;</span>
+                            <span class="command-item-desc">通过完整 URL 建立隧道（<code>u</code> 的别名）</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt server &lt;port&gt;</span>
+                            <span class="command-item-desc">启动 HTTP 文件服务器（简写 <code>nt s</code>）</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt ports</span>
+                            <span class="command-item-desc">列出所有监听端口及对应进程</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt kill [port]</span>
+                            <span class="command-item-desc">终止占用端口的进程，无参进入交互选择</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt download &lt;url&gt;</span>
+                            <span class="command-item-desc">多线程并行下载，支持 Range 协议，自动降级，实时进度条</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt c</span>
+                            <span class="command-item-desc">进入自定义命令向导，创建/列表/删除命令映射</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt &lt;前缀&gt;</span>
+                            <span class="command-item-desc">执行自定义命令</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt install cf</span>
+                            <span class="command-item-desc">安装 cloudflared 到 System32</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt tool jurisdiction</span>
+                            <span class="command-item-desc">递归更改文件所有者，支持当前用户和 Everyone</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt ip</span>
+                            <span class="command-item-desc">显示本机 IP 地址</span>
+                        </div>
+                        <div class="command-item">
+                            <span class="command-item-code">nt</span>
+                            <span class="command-item-desc">无参数进入交互模式，方向键导航，无需记忆复杂命令</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">纯标准库</span>
+                    <span class="tech-tag">Nuitka 编译</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-nexusterminal">
+                <h2 class="section-title">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-nexusterminal">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- 小工具页面 -->
         <section class="project-page" id="tools">
@@ -4244,7 +4456,8 @@
                 'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
                 'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
                 'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
-                'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md'
+                'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md',
+                'nexusterminal': 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/CHANGELOG.md'
             };
 
             const url = urls[project];
@@ -4376,6 +4589,7 @@
             '3': 'tokenpeek',
             '4': 'deskhelper',
             '5': 'iconformsix',
+            '6': 'nexusterminal',
             'X': 'tools'
         };
 
@@ -4387,6 +4601,7 @@
             'tokenpeek': '3',
             'deskhelper': '4',
             'iconformsix': '5',
+            'nexusterminal': '6',
             'tools': 'X'
         };
 
@@ -4463,7 +4678,7 @@
 
         // 键盘导航
         document.addEventListener('keydown', (e) => {
-            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix'];
+            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix', 'nexusterminal'];
             const currentIndex = projectOrder.indexOf(currentProject);
 
             if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
@@ -4549,7 +4764,7 @@
             if (Math.abs(diffX) < Math.abs(diffY) * 0.8) return;
             if (Math.abs(diffX) < 50) return;
 
-            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix'];
+            const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'tokenpeek', 'iconformsix', 'nexusterminal'];
             const currentIndex = projectOrder.indexOf(currentProject);
 
             if (diffX > 0) {
@@ -4615,7 +4830,8 @@
                 'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
                 'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
                 'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
-                'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md'
+                'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md',
+                'nexusterminal': 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/CHANGELOG.md'
             };
 
             const url = projectUrls[projectId];
@@ -4896,7 +5112,8 @@
                     'syncgui': 'gallery-syncgui',
                     'deskhelpergui': 'gallery-deskhelper',
                     'tokenpeek': 'gallery-tokenpeek',
-                    'iconformsix': 'gallery-iconformsix'
+                    'iconformsix': 'gallery-iconformsix',
+                    'nexusterminal': 'gallery-nexusterminal'
                 };
                 if (galleryMap[targetProject]) {
                     resetGallery(galleryMap[targetProject]);
@@ -4916,7 +5133,8 @@
                         'lansyncbox': 'gallery-lansyncbox',
                         'syncgui': 'gallery-syncgui',
                         'deskhelpergui': 'gallery-deskhelper',
-                        'tokenpeek': 'gallery-tokenpeek'
+                        'tokenpeek': 'gallery-tokenpeek',
+                        'nexusterminal': 'gallery-nexusterminal'
                     };
                     if (galleryMap[activePage.id]) {
                         resetGallery(galleryMap[activePage.id]);
@@ -5029,6 +5247,7 @@
             initGallery('gallery-syncgui');
             initGallery('gallery-deskhelper');
             initGallery('gallery-tokenpeek');
+            initGallery('gallery-nexusterminal');
             initLightbox();
         });
 
