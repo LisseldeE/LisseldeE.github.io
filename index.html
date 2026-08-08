@@ -1790,6 +1790,39 @@
             color: var(--accent-cyan);
         }
 
+        .command-list-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 100px;
+        }
+
+        .command-list-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .command-list-retry {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            cursor: pointer;
+            color: var(--accent-blue);
+            font-size: 0.82rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .command-list-retry:hover {
+            opacity: 0.8;
+        }
+
         /* 技术栈标签 */
         .tech-tags {
             display: flex;
@@ -4150,54 +4183,9 @@
             <div class="features-section">
                 <h2 class="section-title">命令参考</h2>
                 <div class="usage-card">
-                    <div class="command-list">
-                        <div class="command-item">
-                            <span class="command-item-code">nt u &lt;port|url&gt;</span>
-                            <span class="command-item-desc">建立 Cloudflare 隧道，暴露本地端口，支持 IPv4/IPv6</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt url &lt;url&gt;</span>
-                            <span class="command-item-desc">通过完整 URL 建立隧道（<code>u</code> 的别名）</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt server &lt;port&gt;</span>
-                            <span class="command-item-desc">启动 HTTP 文件服务器（简写 <code>nt s</code>）</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt ports</span>
-                            <span class="command-item-desc">列出所有监听端口及对应进程</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt kill [port]</span>
-                            <span class="command-item-desc">终止占用端口的进程，无参进入交互选择</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt download &lt;url&gt;</span>
-                            <span class="command-item-desc">多线程并行下载，支持 Range 协议，自动降级，实时进度条</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt c</span>
-                            <span class="command-item-desc">进入自定义命令向导，创建/列表/删除命令映射</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt &lt;前缀&gt;</span>
-                            <span class="command-item-desc">执行自定义命令</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt install cf</span>
-                            <span class="command-item-desc">安装 cloudflared 到 System32</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt tool jurisdiction</span>
-                            <span class="command-item-desc">递归更改文件所有者，支持当前用户和 Everyone</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt ip</span>
-                            <span class="command-item-desc">显示本机 IP 地址</span>
-                        </div>
-                        <div class="command-item">
-                            <span class="command-item-code">nt</span>
-                            <span class="command-item-desc">无参数进入交互模式，方向键导航，无需记忆复杂命令</span>
+                    <div class="command-list" id="command-list-nexusterminal">
+                        <div class="command-list-loading">
+                            <div class="update-tree-scanner"></div>
                         </div>
                     </div>
                 </div>
@@ -4448,6 +4436,164 @@
                 }
             }
         };
+
+        // ========== 命令解析器 ==========
+        const CommandParser = {
+            /**
+             * 解析 Markdown 中的 ## 命令 表格
+             * @param {string} markdown - 原始 Markdown 文本
+             * @returns {Object|null} 含有 commands 数组的对象
+             */
+            parse(markdown) {
+                // 找到 ## 命令 或 ## 命令（中文） 部分
+                const cmdSection = markdown.match(/## 命令\n\n([\s\S]*?)(?=\n##|\n---|$)/);
+                if (!cmdSection) return null;
+
+                const tableText = cmdSection[1];
+                // 匹配表格行
+                const rows = tableText.match(/^\|.*\|$/gm);
+                if (!rows || rows.length < 3) return null;
+
+                // 跳过表头（第1行）和分隔线（第2行）
+                const dataRows = rows.slice(2);
+
+                const commands = dataRows.map(row => {
+                    const cells = row.split('|').filter(cell => cell.trim());
+                    if (cells.length < 2) return null;
+
+                    const cmdCell = cells[0].trim();
+                    const descCell = cells[1].trim();
+
+                    // 提取命令：`nt u <port|url>`
+                    const cmdMatch = cmdCell.match(/`(.+?)`/);
+                    const command = cmdMatch ? cmdMatch[1] : cmdCell;
+
+                    // 说明中的反引号转为 <code> 标签
+                    const description = descCell.replace(/`(.+?)`/g, '<code>$1</code>');
+
+                    return { command, description };
+                }).filter(Boolean);
+
+                return { commands };
+            },
+
+            /**
+             * 从远程获取 NT.md
+             * @param {string} url - GitHub raw URL
+             * @returns {Promise<Object>} 解析后的命令数据
+             */
+            async fetch(url) {
+                const timestamp = Date.now();
+                const urlWithTimestamp = `${url}?t=${timestamp}`;
+                const corsProxies = [
+                    `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
+                    `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`,
+                    urlWithTimestamp
+                ];
+
+                for (const proxyUrl of corsProxies) {
+                    try {
+                        const response = await fetch(proxyUrl);
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        const markdown = await response.text();
+                        const data = this.parse(markdown);
+                        if (data) {
+                            return data;
+                        }
+                        throw new Error('无法解析命令表格');
+                    } catch (error) {
+                        console.log(`CommandParser proxy failed: ${proxyUrl}`, error);
+                    }
+                }
+
+                throw new Error('所有代理都失败了');
+            },
+
+            /**
+             * 获取命令数据（带降级处理）
+             * @param {string} url - GitHub raw URL
+             * @returns {Promise<Object|null>} 数据或null
+             */
+            async getData(url) {
+                try {
+                    return await this.fetch(url);
+                } catch (error) {
+                    console.error('Failed to fetch commands:', error);
+                    return null;
+                }
+            }
+        };
+
+        function renderCommands(commands) {
+            const container = document.getElementById('command-list-nexusterminal');
+            if (!container) return;
+
+            container.innerHTML = commands.map(cmd => `
+                <div class="command-item">
+                    <span class="command-item-code">${cmd.command}</span>
+                    <span class="command-item-desc">${cmd.description}</span>
+                </div>
+            `).join('');
+        }
+
+        function showCommandError(container) {
+            if (!container) container = document.getElementById('command-list-nexusterminal');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="command-list-error">
+                    <div>获取命令列表失败</div>
+                    <div class="command-list-retry" onclick="retryFetchCommands()">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                        <span>重新获取</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadCommands() {
+            const container = document.getElementById('command-list-nexusterminal');
+            if (!container) return;
+
+            // 显示加载动画
+            container.innerHTML = `
+                <div class="command-list-loading">
+                    <div class="update-tree-scanner"></div>
+                </div>
+            `;
+
+            const url = 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/NT.md';
+            const data = await CommandParser.getData(url);
+
+            if (data && data.commands && data.commands.length > 0) {
+                renderCommands(data.commands);
+            } else {
+                showCommandError(container);
+            }
+        }
+
+        async function retryFetchCommands() {
+            const container = document.getElementById('command-list-nexusterminal');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="command-list-loading">
+                    <div class="update-tree-scanner"></div>
+                </div>
+            `;
+
+            const url = 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/NT.md';
+            const data = await CommandParser.getData(url);
+
+            if (data && data.commands && data.commands.length > 0) {
+                renderCommands(data.commands);
+            } else {
+                showCommandError(container);
+            }
+        }
 
         // 重新获取更新日志
         async function retryFetchChangelog(project) {
@@ -5098,12 +5244,16 @@
 
         // 初始加载当前激活项目的更新树
         loadUpdateTree(currentProject);
+        loadCommands();
 
         // 切换项目时重新加载
         document.querySelectorAll('.nav-item, .nav-home').forEach(item => {
             item.addEventListener('click', () => {
                 const targetProject = item.dataset.project;
                 setTimeout(() => loadUpdateTree(targetProject), 100);
+
+                // 切换项目时重新加载命令列表
+                setTimeout(() => loadCommands(), 100);
 
                 // 重置图片列表到第一张
                 const galleryMap = {
@@ -5127,6 +5277,7 @@
                 const activePage = document.querySelector('.project-page.active');
                 if (activePage) {
                     loadUpdateTree(activePage.id);
+                    loadCommands();
                     // 重置图片列表
                     const galleryMap = {
                         'home': null,
