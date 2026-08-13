@@ -1826,6 +1826,93 @@
             opacity: 0.8;
         }
 
+        .quick-nav-container {
+            padding: 0.25rem 0;
+        }
+
+        .quick-nav-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 80px;
+        }
+
+        .quick-nav-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .quick-nav-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quick-nav-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            padding: 0.45rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .quick-nav-row:last-child {
+            border-bottom: none;
+        }
+
+        .quick-nav-cat {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            white-space: nowrap;
+            flex-shrink: 0;
+            width: 5em;
+            border-left: 2px solid var(--accent-cyan);
+            padding-left: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .quick-nav-items {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.25rem 0.6rem;
+            flex: 1;
+            min-width: 0;
+            line-height: 1.5;
+        }
+
+        .quick-nav-entry {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            line-height: 1.5;
+        }
+
+        .quick-nav-entry-sep {
+            color: var(--text-muted);
+            opacity: 0.4;
+        }
+
+        .quick-nav-cmd {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            padding: 0.05em 0.35em;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
         /* 技术栈标签 */
         .tech-tags {
             display: flex;
@@ -4182,6 +4269,18 @@
                 </div>
             </div>
 
+            <!-- 快速导航 -->
+            <div class="features-section">
+                <h2 class="section-title">功能速览</h2>
+                <div class="usage-card">
+                    <div class="quick-nav-container" id="quick-nav-nexusterminal">
+                        <div class="quick-nav-loading">
+                            <div class="update-tree-scanner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 命令参考 -->
             <div class="features-section">
                 <h2 class="section-title">命令参考</h2>
@@ -4595,6 +4694,198 @@
                 renderCommands(data.commands);
             } else {
                 showCommandError(container);
+            }
+        }
+
+        // ========== 快速导航解析器 ==========
+        const QuickNavParser = {
+            /**
+             * 解析 Markdown 中的 ### 快速导航 列表
+             */
+            parse(markdown) {
+                const section = markdown.match(/### 快速导航\n\n?([\s\S]*?)(?=\n###|\n##|\n---|$)/);
+                if (!section) return null;
+
+                const listText = section[1];
+                // 去掉开头的空行
+                const cleanListText = listText.replace(/^\n+/, '');
+                // 匹配所有列表行：- xxx 或     - xxx
+                const lines = cleanListText.split('\n').filter(line => /^\s*- /.test(line));
+                if (lines.length === 0) return null;
+
+                // 解析每行：计算缩进深度，提取标签和命令
+                const items = lines.map(line => {
+                    const indent = line.search(/\S/); // 首非空字符位置
+                    const depth = Math.floor(indent / 4); // 每4空格=1级
+                    const content = line.replace(/^\s*- /, '');
+                    // 提取括号中的命令，如 "隧道 (u / url)" -> label="隧道", command="u / url"
+                    const cmdMatch = content.match(/^(.*?)\s*\((.+?)\)\s*$/);
+                    if (cmdMatch) {
+                        return { depth, label: cmdMatch[1].trim(), command: cmdMatch[2] };
+                    }
+                    return { depth, label: content, command: null };
+                });
+
+                // 构建树结构
+                function buildTree(items, startIdx, parentDepth) {
+                    const children = [];
+                    let i = startIdx;
+                    while (i < items.length) {
+                        const item = items[i];
+                        if (item.depth <= parentDepth) break;
+                        if (item.depth === parentDepth + 1) {
+                            const subTree = buildTree(items, i + 1, item.depth);
+                            children.push({
+                                label: item.label,
+                                command: item.command,
+                                children: subTree.children
+                            });
+                            i = subTree.nextIndex;
+                        } else {
+                            i++;
+                        }
+                    }
+                    return { children, nextIndex: i };
+                }
+
+                const tree = buildTree(items, 0, -1);
+                return tree.children.length > 0 ? { tree: tree.children } : null;
+            },
+
+            /**
+             * 渲染树为 HTML
+             */
+            render(tree) {
+                if (!tree || tree.length === 0) return '';
+
+                // Separate categories with children from leaf items
+                const withChildren = tree.filter(item => item.children && item.children.length > 0);
+                const leafs = tree.filter(item => !item.children || item.children.length === 0);
+
+                let html = '<div class="quick-nav-rows">';
+
+                withChildren.forEach(cat => {
+                    html += '<div class="quick-nav-row">';
+                    html += `<span class="quick-nav-cat">${cat.label}</span>`;
+                    html += '<div class="quick-nav-items">';
+                    cat.children.forEach((sub, si) => {
+                        const cmd = sub.command ? `<span class="quick-nav-cmd">${sub.command}</span>` : '';
+                        if (si > 0) html += '<span class="quick-nav-entry-sep">·</span>';
+                        html += `<span class="quick-nav-entry">${sub.label}${cmd}</span>`;
+                    });
+                    html += '</div></div>';
+                });
+
+                // Leaf items grouped into one row
+                if (leafs.length > 0) {
+                    html += '<div class="quick-nav-row">';
+                    html += '<span class="quick-nav-cat">其他</span>';
+                    html += '<div class="quick-nav-items">';
+                    leafs.forEach((leaf, li) => {
+                        const cmd = leaf.command ? `<span class="quick-nav-cmd">${leaf.command}</span>` : '';
+                        if (li > 0) html += '<span class="quick-nav-entry-sep">·</span>';
+                        html += `<span class="quick-nav-entry">${leaf.label}${cmd}</span>`;
+                    });
+                    html += '</div></div>';
+                }
+
+                html += '</div>';
+                return html;
+            },
+
+            async fetch(url) {
+                const timestamp = Date.now();
+                const urlWithTimestamp = `${url}?t=${timestamp}`;
+                const corsProxies = [
+                    `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
+                    `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`,
+                    urlWithTimestamp
+                ];
+
+                for (const proxyUrl of corsProxies) {
+                    try {
+                        const response = await fetch(proxyUrl);
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        const markdown = await response.text();
+                        const data = this.parse(markdown);
+                        if (data) return data;
+                        throw new Error('无法解析快速导航');
+                    } catch (error) {
+                        console.log(`QuickNavParser proxy failed: ${proxyUrl}`, error);
+                    }
+                }
+                throw new Error('所有代理都失败了');
+            },
+
+            async getData(url) {
+                try {
+                    return await this.fetch(url);
+                } catch (error) {
+                    console.error('Failed to fetch quick nav:', error);
+                    return null;
+                }
+            }
+        };
+
+        function renderQuickNav(tree) {
+            const container = document.getElementById('quick-nav-nexusterminal');
+            if (!container) return;
+            container.innerHTML = QuickNavParser.render(tree);
+        }
+
+        function showQuickNavError() {
+            const container = document.getElementById('quick-nav-nexusterminal');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="quick-nav-error">
+                    <div>获取快速导航失败</div>
+                    <div class="command-list-retry" onclick="retryFetchQuickNav()">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                        <span>重新获取</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadQuickNav() {
+            const container = document.getElementById('quick-nav-nexusterminal');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="quick-nav-loading">
+                    <div class="update-tree-scanner"></div>
+                </div>
+            `;
+
+            const url = 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/README.md';
+            const data = await QuickNavParser.getData(url);
+
+            if (data && data.tree && data.tree.length > 0) {
+                renderQuickNav(data.tree);
+            } else {
+                showQuickNavError();
+            }
+        }
+
+        async function retryFetchQuickNav() {
+            const container = document.getElementById('quick-nav-nexusterminal');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="quick-nav-loading">
+                    <div class="update-tree-scanner"></div>
+                </div>
+            `;
+
+            const url = 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/README.md';
+            const data = await QuickNavParser.getData(url);
+
+            if (data && data.tree && data.tree.length > 0) {
+                renderQuickNav(data.tree);
+            } else {
+                showQuickNavError();
             }
         }
 
@@ -5248,6 +5539,7 @@
         // 初始加载当前激活项目的更新树
         loadUpdateTree(currentProject);
         loadCommands();
+        loadQuickNav();
 
         // 切换项目时重新加载
         document.querySelectorAll('.nav-item, .nav-home').forEach(item => {
@@ -5257,6 +5549,7 @@
 
                 // 切换项目时重新加载命令列表
                 setTimeout(() => loadCommands(), 100);
+                setTimeout(() => loadQuickNav(), 100);
 
                 // 重置图片列表到第一张
                 const galleryMap = {
@@ -5281,6 +5574,7 @@
                 if (activePage) {
                     loadUpdateTree(activePage.id);
                     loadCommands();
+                    loadQuickNav();
                     // 重置图片列表
                     const galleryMap = {
                         'home': null,
