@@ -61,6 +61,25 @@
             </div>
         </div>
 
+        <!-- 语言切换器 -->
+        <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-switcher-toggle" id="langSwitcherToggle" type="button">
+                <svg class="lang-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span class="lang-name">简体中文</span>
+                <svg class="lang-arrow" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="lang-switcher-menu" id="langSwitcherMenu">
+                <button class="lang-option active" data-lang="zh-cn" type="button">
+                    <span>简体中文</span>
+                    <svg class="lang-check" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+                <button class="lang-option" data-lang="en" type="button">
+                    <span>English</span>
+                    <svg class="lang-check" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+            </div>
+        </div>
+
         <!-- 可滚动项目区域 -->
         <div class="nav-items-scroll-container">
             <nav class="nav-items">

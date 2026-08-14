@@ -953,6 +953,110 @@ body::after {
     color: var(--text-primary);
 }
 
+/* 语言切换器 */
+.lang-switcher {
+    position: relative;
+    margin: 0 1rem;
+    z-index: 60;
+}
+
+.lang-switcher-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-switcher-toggle:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+}
+
+.lang-icon {
+    flex-shrink: 0;
+    opacity: 0.6;
+    display: block;
+}
+
+.lang-switcher-toggle .lang-name {
+    flex: 1;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.lang-switcher-toggle .lang-arrow {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    opacity: 0.6;
+}
+
+.lang-switcher.open .lang-arrow {
+    transform: rotate(180deg);
+}
+
+.lang-switcher-menu {
+    position: absolute;
+    top: calc(100% + 0.3rem);
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 60;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.lang-switcher.open .lang-switcher-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lang-option:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+}
+
+.lang-option.active {
+    color: var(--accent-cyan);
+}
+
+.lang-option .lang-check {
+    margin-left: auto;
+    opacity: 0;
+}
+
+.lang-option.active .lang-check {
+    opacity: 1;
+}
+
 /* 主内容区域 */
 .main-content {
     flex: 1;
@@ -2730,6 +2834,10 @@ body::after {
     .nav-home {
         margin: 0.75rem;
         padding: 0.875rem;
+    }
+
+    .lang-switcher {
+        margin: 0 0.75rem;
     }
 
     .nav-home-header {

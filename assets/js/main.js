@@ -1254,6 +1254,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 400);
     }
+
+    // ========== 语言切换器 ==========
+    const langSwitcher = document.getElementById('langSwitcher');
+    const langToggle = document.getElementById('langSwitcherToggle');
+
+    if (langSwitcher && langToggle) {
+        // 切换下拉菜单
+        langToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langSwitcher.classList.toggle('open');
+        });
+
+        // 点击外部关闭下拉
+        document.addEventListener('click', (e) => {
+            if (!langSwitcher.contains(e.target)) {
+                langSwitcher.classList.remove('open');
+            }
+        });
+
+        // 语言选项点击
+        langSwitcher.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const targetLang = option.getAttribute('data-lang');
+                const currentLang = window.getCurrentLang();
+                if (targetLang === currentLang) {
+                    langSwitcher.classList.remove('open');
+                    return;
+                }
+
+                // 保存语言偏好
+                localStorage.setItem('site-lang', targetLang);
+
+                // 保持当前 hash，跳转到对应语言目录
+                const hash = window.location.hash || '#0';
+                const targetPath = targetLang === 'en' ? '/en/' : '/zh-cn/';
+                window.location.href = targetPath + hash;
+            });
+        });
+    }
 });
 
 // 监听 hash 变化事件（支持浏览器前进/后退按钮）
