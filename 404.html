@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+        (function() {
+            var path = window.location.pathname;
+            var hash = window.location.hash;
+
+            // 检测浏览器语言
+            var lang = (navigator.language || navigator.browserLanguage || '').toLowerCase();
+            var targetLang = lang.indexOf('zh') === 0 ? 'zh-cn' : 'en';
+
+            // 如果路径已经包含语言子目录，提取 hash 即可
+            if (path.indexOf('/en/') === 0) {
+                window.location.replace('/en/' + hash);
+            } else if (path.indexOf('/zh-cn/') === 0) {
+                window.location.replace('/zh-cn/' + hash);
+            } else {
+                // 根路径，重定向到语言子目录
+                window.location.replace('/' + targetLang + '/' + hash);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>

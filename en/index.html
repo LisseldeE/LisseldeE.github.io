@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title>Lisselde_E - Portfolio</title>
+    <meta name="description" content="Lisselde_E's personal portfolio featuring LANSyncBox, SyncGUI, DeskHelperGUI and more.">
+    <link rel="icon" href="assets/images/icon/me.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!-- 网格背景 -->
+    <div class="grid-bg"></div>
+
+    <!-- 页面加载动画 -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-scanner"></div>
+        <div class="loader-trails">
+            <div class="loader-trail"></div>
+            <div class="loader-trail"></div>
+            <div class="loader-trail"></div>
+            <div class="loader-trail"></div>
+        </div>
+        <div class="loader-text" data-i18n="loading.default">加载中...</div>
+    </div>
+
+    <!-- 移动端抽屉按钮 (480px 以下) -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开导航菜单">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M4 6l16 0"/><path d="M4 12l16 0"/><path d="M4 18l16 0"/>
+        </svg>
+    </button>
+
+    <!-- 左侧导航栏 (桌面固定 / 移动端抽屉) -->
+    <aside class="sidebar" id="sidebar">
+        <!-- 主页导航项 - 固定显示 -->
+        <div class="nav-home active" data-project="home">
+            <div class="nav-home-header">
+                <div class="nav-home-icon">
+                    <img src="assets/images/icon/me.ico" alt="主页">
+                </div>
+                <div class="nav-home-info">
+                    <div class="nav-home-name">Lisselde_E</div>
+                    <div class="nav-home-subtitle">Personal Projects</div>
+                </div>
+            </div>
+            <div class="nav-home-stats">
+                <div class="nav-home-stat">
+                    <span class="nav-home-stat-value">6</span>
+                    <span class="nav-home-stat-label" data-i18n="nav.stats.projects">公开项目</span>
+                </div>
+                <div class="nav-home-stat-divider"></div>
+                <div class="nav-home-stat">
+                    <span class="nav-home-stat-value">Python</span>
+                    <span class="nav-home-stat-label" data-i18n="nav.stats.focus">专注</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可滚动项目区域 -->
+        <div class="nav-items-scroll-container">
+            <nav class="nav-items">
+                <div class="nav-section-title" data-i18n="category.efficiency">效率工具</div>
+
+                <div class="nav-item" data-project="lansyncbox">
+                    <div class="nav-item-icon">
+                        <img src="assets/images/icon/lansyncbox.ico" alt="LANSyncBox">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">LANSyncBox</div>
+                        <div class="nav-item-desc" data-i18n="nav.lansyncbox.desc">局域网文件同步</div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-project="syncgui">
+                    <div class="nav-item-icon">
+                        <img src="assets/images/icon/syncgui.ico" alt="SyncGUI">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">SyncGUI</div>
+                        <div class="nav-item-desc" data-i18n="nav.syncgui.desc">双端文件同步</div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-project="deskhelper">
+                    <div class="nav-item-icon">
+                        <img src="assets/images/icon/deskhelper.ico" alt="DeskHelperGUI">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">DeskHelperGUI</div>
+                        <div class="nav-item-desc" data-i18n="nav.deskhelper.desc">桌面办公助手</div>
+                    </div>
+                </div>
+
+                <div class="nav-section-title" data-i18n="category.developer">开发者工具</div>
+
+                <div class="nav-item" data-project="tokenpeek">
+                    <div class="nav-item-icon">
+                        <img src="assets/images/icon/tokenpeek.ico" alt="TokenPeek">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">TokenPeek</div>
+                        <div class="nav-item-desc" data-i18n="nav.tokenpeek.desc">AI额度监控</div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-project="iconformsix">
+                    <div class="nav-item-icon">
+                        <img src="assets/images/icon/iconformsix.ico" alt="IconForMsix">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">IconForMsix</div>
+                        <div class="nav-item-desc" data-i18n="nav.iconformsix.desc">MSIX图标集生成</div>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-project="nexusterminal">
+                    <div class="nav-item-icon">
+                        <img src="assets/images/icon/Nexus%20Terminal.ico" alt="Nexus Terminal">
+                    </div>
+                    <div class="nav-item-content">
+                        <div class="nav-item-name">Nexus Terminal</div>
+                        <div class="nav-item-desc" data-i18n="nav.nexusterminal.desc">终端辅助工具集</div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- 底部链接区域 - 固定显示 -->
+        <div class="sidebar-footer">
+            <div class="sidebar-links">
+                <a href="https://github.com/LisseldeE" target="_blank" class="sidebar-link">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span data-i18n="nav.github">GitHub 主页</span>
+                </a>
+                <a href="https://gitee.com/Lisselde_E" target="_blank" class="sidebar-link">
+                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="14" height="14" alt="Gitee" style="vertical-align: middle;">
+                    <span data-i18n="nav.gitee">Gitee 主页</span>
+                </a>
+                <a href="mailto:Lisselde.E@outlook.com" class="sidebar-link" title="Lisselde.E@outlook.com">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span>Email</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 移动端侧边栏遮罩层 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 主页 -->
+        <section class="project-page active" id="home">
+            <div class="home-hero">
+                <div class="home-hero-content">
+                    <div class="home-avatar">
+                        <img src="assets/images/webp/me.webp" alt="Lisselde_E">
+                    </div>
+                    <h1 class="home-title">Lisselde_E</h1>
+                    <p class="home-subtitle" data-i18n="home.subtitle">全栈开发者 / Python 专注</p>
+                    <p class="home-description" data-i18n="home.description">
+                        专注开发实用工具，追求简洁、高效、易用
+                    </p>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="home.overview">项目概览</h2>
+                <div class="home-projects-grid">
+                    <div class="home-project-card" data-project="lansyncbox">
+                        <div class="home-project-icon">
+                            <img src="assets/images/icon/lansyncbox.ico" alt="LANSyncBox">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">LANSyncBox <span class="home-project-category efficiency" data-i18n="category.efficiency">效率工具</span></h3>
+                            <p class="home-project-desc" data-i18n="card.lansyncbox.desc">局域网文件实时同步工具</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag" data-i18n="card.lansyncbox.tag1">局域网同步</span>
+                                <span class="home-project-tag" data-i18n="card.lansyncbox.tag2">多人协作</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-project-card" data-project="syncgui">
+                        <div class="home-project-icon">
+                            <img src="assets/images/icon/syncgui.ico" alt="SyncGUI">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">SyncGUI <span class="home-project-category efficiency" data-i18n="category.efficiency">效率工具</span></h3>
+                            <p class="home-project-desc" data-i18n="card.syncgui.desc">双端文件同步工具</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag" data-i18n="card.syncgui.tag1">智能同步</span>
+                                <span class="home-project-tag" data-i18n="syncgui.feature.diff.title">差异检测</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-project-card" data-project="deskhelper">
+                        <div class="home-project-icon">
+                            <img src="assets/images/icon/deskhelper.ico" alt="DeskHelperGUI">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">DeskHelperGUI <span class="home-project-category efficiency" data-i18n="category.efficiency">效率工具</span></h3>
+                            <p class="home-project-desc" data-i18n="card.deskhelper.desc">桌面办公小助手</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag" data-i18n="deskhelper.feature.fileops.title">文件处理</span>
+                                <span class="home-project-tag" data-i18n="card.deskhelper.tag2">批量操作</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-project-card" data-project="tokenpeek">
+                        <div class="home-project-icon">
+                            <img src="assets/images/icon/tokenpeek.ico" alt="TokenPeek">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">TokenPeek <span class="home-project-category developer" data-i18n="category.developer">开发者工具</span></h3>
+                            <p class="home-project-desc" data-i18n="card.tokenpeek.desc">AI额度实时监控工具</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag" data-i18n="tokenpeek.feature.tray.title">托盘常驻</span>
+                                <span class="home-project-tag" data-i18n="tokenpeek.feature.monitor.title">实时监控</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-project-card" data-project="iconformsix">
+                        <div class="home-project-icon">
+                            <img src="assets/images/icon/iconformsix.ico" alt="IconForMsix">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">IconForMsix <span class="home-project-category developer" data-i18n="category.developer">开发者工具</span></h3>
+                            <p class="home-project-desc" data-i18n="card.iconformsix.desc">MSIX图标集生成工具</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag" data-i18n="card.iconformsix.tag1">图标生成</span>
+                                <span class="home-project-tag" data-i18n="card.iconformsix.tag2">批量处理</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-project-card" data-project="nexusterminal">
+                        <div class="home-project-icon">
+                            <img src="assets/images/icon/Nexus%20Terminal.ico" alt="Nexus Terminal">
+                        </div>
+                        <div class="home-project-info">
+                            <h3 class="home-project-name">Nexus Terminal <span class="home-project-category developer" data-i18n="category.developer">开发者工具</span></h3>
+                            <p class="home-project-desc" data-i18n="card.nexusterminal.desc">终端辅助工具集，隧道、服务器、端口管理等</p>
+                            <div class="home-project-tags">
+                                <span class="home-project-tag" data-i18n="card.nexusterminal.tag1">隧道服务</span>
+                                <span class="home-project-tag" data-i18n="card.nexusterminal.tag2">端口管理</span>
+                                <span class="home-project-tag" data-i18n="card.nexusterminal.tag3">自定义命令</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="home.about">关于我</h2>
+                <div class="home-about-content">
+                    <div class="home-about-item">
+                        <div class="home-about-title" data-i18n="home.about.philosophy">开发理念</div>
+                        <p class="home-about-desc" data-i18n="home.about.philosophy.desc">注重用户体验，追求简洁高效的设计。每个功能都经过精心打磨，确保直观易用。</p>
+                    </div>
+                    <div class="home-about-item">
+                        <div class="home-about-title" data-i18n="section.techstack">技术栈</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag" data-i18n="home.tech.desktop">桌面应用</span>
+                            <span class="tech-tag" data-i18n="home.tech.frontend">前端开发</span>
+                            <span class="tech-tag" data-i18n="home.tech.backend">后端开发</span>
+                        </div>
+                    </div>
+                    <div class="home-about-item">
+                        <div class="home-about-title" data-i18n="home.about.opensource">开源精神</div>
+                        <p class="home-about-desc" data-i18n="home.about.opensource.desc">展示项目均开源分享，欢迎交流学习。如有问题或创意，欢迎提交 Issue 和 Pull Request。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LANSyncBox 项目页面 -->
+        <section class="project-page" id="lansyncbox">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="assets/images/icon/lansyncbox.ico" alt="LANSyncBox">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">LANSyncBox</h1>
+                        <p class="project-subtitle" data-i18n="project.lansyncbox.subtitle">局域网文件实时同步工具，实现多人隔空文件共享</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/LANSyncBox" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                <span data-i18n="link.github">GitHub 仓库</span>
+                            </a>
+                            <div class="project-latest-build" id="latest-build-lansyncbox">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text" data-i18n="loading.fetching">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">Microsoft Store</span>
+                            <a href="https://apps.microsoft.com/detail/9nsjvp7fxkm3?referrer=appbadge&mode=full" target="_blank" class="header-download-badge">
+                                <img class="ms-store-badge" src="https://get.microsoft.com/images/zh-cn%20dark.svg" alt="Microsoft Store">
+                            </a>
+                        </div>
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title" data-i18n="download.other">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/LANSyncBox/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/LANSyncBox/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title" data-i18n="section.screenshots">界面截图</h2>
+                <div class="image-gallery" id="gallery-lansyncbox">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="assets/images/webp/1-1.webp" alt="界面截图1">
+                        </div>
+                        <div class="gallery-thumb" data-index="1">
+                            <img src="assets/images/webp/1-2.webp" alt="界面截图2">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="assets/images/webp/1-1.webp" alt="界面截图1">
+                        <img class="gallery-main-image next hidden" src="assets/images/webp/1-1.webp" alt="">
+                        <div class="gallery-counter">1 / 2</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption" data-i18n="lansyncbox.gallery.caption">LANSyncBox 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="lansyncbox.section.guide">使用指南</h2>
+                <div class="usage-cards">
+                    <div class="usage-card">
+                        <div class="usage-card-header">
+                            <span class="usage-card-icon"></span>
+                            <span class="usage-card-title" data-i18n="lansyncbox.guide.host.title">创建房间（主机端）</span>
+                        </div>
+                        <div class="usage-card-steps">
+                            <div class="usage-step">
+                                <span class="step-number">1</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.host.step1">点击"创建连接"按钮</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">2</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.host.step2">可选：设置6位数字房间号和密码保护</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">3</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.host.step3">点击创建，进入同步状态界面</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">4</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.host.step4">等待其他用户加入，开始实时同步</span>
+                            </div>
+                        </div>
+                        <div class="usage-card-note" data-i18n="lansyncbox.guide.host.note">主机端可查看所有同步记录、在线连接端列表</div>
+                    </div>
+                    <div class="usage-card">
+                        <div class="usage-card-header">
+                            <span class="usage-card-icon"></span>
+                            <span class="usage-card-title" data-i18n="lansyncbox.guide.join.title">加入房间（连接端）</span>
+                        </div>
+                        <div class="usage-card-steps">
+                            <div class="usage-step">
+                                <span class="step-number">1</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.join.step1">点击"加入连接"按钮</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">2</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.join.step2">扫描已有房间或手动输入房间号</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">3</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.join.step3">如有密码保护，输入密码进行预验证</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">4</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.join.step4">验证失败即时提示，可修改信息重试</span>
+                            </div>
+                            <div class="usage-step">
+                                <span class="step-number">5</span>
+                                <span class="step-content" data-i18n="lansyncbox.guide.join.step5">点击连接，自动从主机全量同步</span>
+                            </div>
+                        </div>
+                        <div class="usage-card-note" data-i18n="lansyncbox.guide.join.note">断线重连后自动增量同步补齐差异</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.features">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.realtime.title">实时同步</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.realtime.desc">文件添加、修改、删除、重命名操作实时同步至所有连接端，支持文件夹递归同步</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.reliability.title">传输可靠性</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.reliability.desc">断点续传、完整性校验、背压自适应、流式传输，确保大文件稳定传输</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.multisync.title">多端同步</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.multisync.desc">主机端修改实时同步至所有端，支持并发传输限制（最多3个文件）</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.security.title">安全验证</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.security.desc">自定义房间号，可选密码验证，加入时版本号验证确保连接兼容性</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.fileops.title">文件操作</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.fileops.desc">支持复制、剪切、粘贴、删除、重命名，双击空白快速添加文件/文件夹</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.preview.title">文件预览</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.preview.desc">双击文件直接预览，预览窗口只读模式，避免误修改文件内容</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.i18n.title">多语言支持</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.i18n.desc">支持中文/英文界面切换，实时切换无需重启程序</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.techstack">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PySide6 (Qt6)</span>
+                    <span class="tech-tag" data-i18n="lansyncbox.tech.tcp">TCP 自定义协议</span>
+                    <span class="tech-tag" data-i18n="lansyncbox.tech.streaming">流式传输</span>
+                    <span class="tech-tag" data-i18n="lansyncbox.tech.resume">断点续传</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-lansyncbox">
+                <h2 class="section-title" data-i18n="section.updatetree">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-lansyncbox">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text" data-i18n="loading.default">加载中...</div>
+                    </div>
+                </div>
+            </div>
+                </section>
+
+        <!-- SyncGUI 项目页面 -->
+        <section class="project-page" id="syncgui">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="assets/images/icon/syncgui.ico" alt="SyncGUI">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">SyncGUI</h1>
+                        <p class="project-subtitle" data-i18n="card.syncgui.desc">双端文件同步工具，智能差异检测，多种同步模式</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/SyncGUI" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                <span data-i18n="link.github">GitHub 仓库</span>
+                            </a>
+                            <div class="project-latest-build" id="latest-build-syncgui">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text" data-i18n="loading.fetching">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">Microsoft Store</span>
+                            <a href="https://apps.microsoft.com/detail/9ncs5fmkwq6l?referrer=appbadge&mode=full" target="_blank" class="header-download-badge">
+                                <img class="ms-store-badge" src="https://get.microsoft.com/images/zh-cn%20dark.svg" alt="Microsoft Store">
+                            </a>
+                        </div>
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title" data-i18n="download.other">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/SyncGUI/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/SyncGUI/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title" data-i18n="section.screenshots">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-syncgui">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="assets/images/webp/2-1.webp" alt="界面截图">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="assets/images/webp/2-1.webp" alt="界面截图">
+                        <img class="gallery-main-image next hidden" src="assets/images/webp/2-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption" data-i18n="syncgui.gallery.caption">SyncGUI 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.features">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="syncgui.feature.twoway.title">双向同步</div>
+                        <div class="feature-desc" data-i18n="syncgui.feature.twoway.desc">支持双端之间的双向文件同步，智能识别新增、修改、冲突文件</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="syncgui.feature.diff.title">差异检测</div>
+                        <div class="feature-desc" data-i18n="syncgui.feature.diff.desc">MD5 哈希内容比对，自动识别文件差异，精确判断同步方向</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="syncgui.feature.dirsync.title">目录同步</div>
+                        <div class="feature-desc" data-i18n="syncgui.feature.dirsync.desc">可配置特定目录按整体同步，正确处理空目录及符号链接</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="syncgui.feature.oneway.title">单向同步</div>
+                        <div class="feature-desc" data-i18n="syncgui.feature.oneway.desc">差异同步或覆盖同步模式，可选保留或删除多余项目</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="syncgui.feature.ignore.title">忽略规则</div>
+                        <div class="feature-desc" data-i18n="syncgui.feature.ignore.desc">支持自定义忽略规则语法，灵活排除不需要同步的文件</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="syncgui.feature.customname.title">自定义名称</div>
+                        <div class="feature-desc" data-i18n="syncgui.feature.customname.desc">支持自定义双端目录名称显示，配置自动保存恢复</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.i18n.title">多语言支持</div>
+                        <div class="feature-desc" data-i18n="lansyncbox.feature.i18n.desc">支持中文/英文界面切换，实时切换无需重启程序</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.techstack">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PySide6</span>
+                    <span class="tech-tag">Windows API</span>
+                    <span class="tech-tag" data-i18n="syncgui.tech.md5">MD5 哈希</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-syncgui">
+                <h2 class="section-title" data-i18n="section.updatetree">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-syncgui">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text" data-i18n="loading.default">加载中...</div>
+                    </div>
+                </div>
+            </div>
+                </section>
+
+        <!-- TokenPeek 项目页面 -->
+        <section class="project-page" id="tokenpeek">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="assets/images/icon/tokenpeek.ico" alt="TokenPeek">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">TokenPeek</h1>
+                        <p class="project-subtitle" data-i18n="card.tokenpeek.desc">AI额度实时监控工具，常驻托盘实时掌握API消耗</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/TokenPeek" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                <span data-i18n="link.github">GitHub 仓库</span>
+                            </a>
+                            <div class="project-latest-build" id="latest-build-tokenpeek">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text" data-i18n="loading.fetching">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title">Microsoft Store</span>
+                            <a href="https://apps.microsoft.com/detail/9nch6b472tmz?referrer=appbadge&mode=full" target="_blank" class="header-download-badge">
+                                <img class="ms-store-badge" src="https://get.microsoft.com/images/zh-cn%20dark.svg" alt="Microsoft Store">
+                            </a>
+                        </div>
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title" data-i18n="download.other">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/TokenPeek/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/TokenPeek/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title" data-i18n="section.screenshots">界面截图</h2>
+                <div class="image-gallery" id="gallery-tokenpeek">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="assets/images/webp/4-1.webp" alt="欢迎向导">
+                        </div>
+                        <div class="gallery-thumb" data-index="1">
+                            <img src="assets/images/webp/4-2.webp" alt="监控界面">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="assets/images/webp/4-1.webp" alt="欢迎向导">
+                        <img class="gallery-main-image next hidden" src="assets/images/webp/4-2.webp" alt="">
+                        <div class="gallery-counter">1 / 2</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption" data-i18n="tokenpeek.gallery.welcome">欢迎向导</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.features">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.feature.monitor.title">实时监控</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.monitor.desc">实时显示 API 余额、今日已用，聚合视图查看所有已配置模型的余额、用量</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.feature.tray.title">托盘常驻</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.tray.desc">常驻系统托盘，单击展开面板，点击空白处自动隐藏，不占用主界面空间</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.feature.autorefresh.title">自动刷新</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.autorefresh.desc">定时自动刷新余额数据，支持手动刷新，展开时自动刷新一次</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.feature.alert.title">状态预警</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.alert.desc">根据余额状态自动切换图标颜色（绿色充足、黄色注意、红色告急）</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.gallery.welcome">欢迎向导</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.welcome.desc">首次启动引导配置模型平台和 API Key，轻松完成初始化设置</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.feature.modelconfig.title">模型配置</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.modelconfig.desc">支持配置多个模型平台（DeepSeek、Kimi、StepFun），自定义模型信息</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="lansyncbox.feature.i18n.title">多语言支持</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.i18n.desc">支持中文/英文界面实时切换，自动识别系统语言</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="tokenpeek.feature.datasecurity.title">数据安全</div>
+                        <div class="feature-desc" data-i18n="tokenpeek.feature.datasecurity.desc">所有配置和缓存数据存储在本地（~/.TokenPeek/），无云端上传</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模型支持板块 -->
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="tokenpeek.section.models">模型支持</h2>
+                <div class="model-support-container">
+                    <div class="model-support-group">
+                        <div class="model-group-header">
+                            <span class="model-group-dot supported"></span>
+                            <span class="model-group-title" data-i18n="tokenpeek.model.supported">已支持的模型</span>
+                        </div>
+                        <div class="model-list">
+                            <div class="model-item supported">
+                                <span class="model-status-dot"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name" data-i18n="tokenpeek.model.deepseek">DeepSeek</div>
+                                    <div class="model-item-desc" data-i18n="tokenpeek.model.deepseek.desc">深度求索 AI 模型</div>
+                                </div>
+                            </div>
+                            <div class="model-item supported">
+                                <span class="model-status-dot"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name" data-i18n="tokenpeek.model.kimi">Kimi</div>
+                                    <div class="model-item-desc" data-i18n="tokenpeek.model.kimi.desc">Moonshot AI 模型</div>
+                                </div>
+                            </div>
+                            <div class="model-item supported">
+                                <span class="model-status-dot"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name" data-i18n="tokenpeek.model.stepfun">StepFun</div>
+                                    <div class="model-item-desc" data-i18n="tokenpeek.model.stepfun.desc">阶跃星辰 AI 模型</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-support-group">
+                        <div class="model-group-header">
+                            <span class="model-group-dot adapting"></span>
+                            <span class="model-group-title" data-i18n="tokenpeek.model.adapting">正在适配的模型</span>
+                        </div>
+                        <div class="model-list">
+                            <div class="model-item adapting">
+                                <span class="model-status-dot adapting"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name" data-i18n="tokenpeek.model.zhipu">智谱AI</div>
+                                    <div class="model-item-desc" data-i18n="tokenpeek.model.zhipu.desc">GLM 系列模型</div>
+                                </div>
+                            </div>
+                            <div class="model-item adapting">
+                                <span class="model-status-dot adapting"></span>
+                                <div class="model-item-content">
+                                    <div class="model-item-name" data-i18n="tokenpeek.model.minimax">MiniMax</div>
+                                    <div class="model-item-desc" data-i18n="tokenpeek.model.minimax.desc">海螺 AI 模型</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-support-note">
+                            <span class="note-text" data-i18n="tokenpeek.model.note">部分平台暂未提供官方余额查询API端点，我们正在积极寻找解决方案</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.techstack">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PySide6 (Qt6)</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-tokenpeek">
+                <h2 class="section-title" data-i18n="section.updatetree">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-tokenpeek">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text" data-i18n="loading.default">加载中...</div>
+                    </div>
+                </div>
+            </div>
+                </section>
+
+        <!-- DeskHelperGUI 项目页面 -->
+        <section class="project-page" id="deskhelper">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="assets/images/icon/deskhelper.ico" alt="DeskHelperGUI">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">DeskHelperGUI</h1>
+                        <p class="project-subtitle" data-i18n="card.deskhelper.desc">桌面办公小助手，多种快捷实用功能</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/DeskHelperGUI" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                <span data-i18n="link.github">GitHub 仓库</span>
+                            </a>
+                            <div class="project-latest-build" id="latest-build-deskhelper">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text" data-i18n="loading.fetching">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title" data-i18n="download.other">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/DeskHelperGUI/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/DeskHelperGUI/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title" data-i18n="section.screenshots">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-deskhelper">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="assets/images/webp/3-1.webp" alt="界面截图">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="assets/images/webp/3-1.webp" alt="界面截图">
+                        <img class="gallery-main-image next hidden" src="assets/images/webp/3-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption" data-i18n="deskhelper.gallery.caption">DeskHelperGUI 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.features">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.compress.title">快捷压缩</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.compress.desc">文件压缩解压，支持多种格式、压缩级别、加密压缩，全局保存路径</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.image.title">图片处理</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.image.desc">旋转、裁剪、压缩图片，证件照排版，实时预览压缩效果</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.pdf.title">PDF处理</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.pdf.desc">PDF拆分、合并、压缩，PDF转图片，PDF转Word保留表格样式</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.convert.title">格式转换</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.convert.desc">图片格式互转（JPG/PNG/ICO/BMP/GIF/WebP），支持多尺寸ICO</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.encrypt.title">文件加密</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.encrypt.desc">AES-256加密算法，支持大文件分块加密，实时进度显示</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.qrcode.title">二维码工具</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.qrcode.desc">生成、解码二维码，支持文本、URL、WiFi、名片等，自定义样式</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.fileops.title">文件处理</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.fileops.desc">文件名提取导出Excel、批量重命名、批量创建文件/文件夹</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="deskhelper.feature.hash.title">哈希校验</div>
+                        <div class="feature-desc" data-i18n="deskhelper.feature.hash.desc">MD5、SHA-1、SHA-256、SHA-512 多种算法哈希值计算与比对校验</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.techstack">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PyQt5</span>
+                    <span class="tech-tag">Pillow</span>
+                    <span class="tech-tag">PyMuPDF</span>
+                    <span class="tech-tag">cryptography</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-deskhelper">
+                <h2 class="section-title" data-i18n="section.updatetree">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-deskhelper">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text" data-i18n="loading.default">加载中...</div>
+                    </div>
+                </div>
+            </div>
+                </section>
+
+        <!-- IconForMsix 项目页面 -->
+        <section class="project-page" id="iconformsix">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="assets/images/icon/iconformsix.ico" alt="IconForMsix">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">IconForMsix</h1>
+                        <p class="project-subtitle" data-i18n="iconformsix.feature.dragdrop.desc">MSIX包图标生成工具，拖拽PNG图片一键生成40种MSIX图标尺寸</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/IconForMsix" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                <span data-i18n="link.github">GitHub 仓库</span>
+                            </a>
+                            <div class="project-latest-build" id="latest-build-iconformsix">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text" data-i18n="loading.fetching">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title" data-i18n="download.other">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/IconForMsix/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/IconForMsix/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title" data-i18n="section.screenshots">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-iconformsix">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="assets/images/webp/5-1.webp" alt="界面截图">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="assets/images/webp/5-1.webp" alt="界面截图">
+                        <img class="gallery-main-image next hidden" src="assets/images/webp/5-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption" data-i18n="iconformsix.gallery.caption">IconForMsix 界面截图</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.features">核心功能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="iconformsix.feature.dragdrop.title">拖拽操作</div>
+                        <div class="feature-desc" data-i18n="iconformsix.feature.dragdrop.desc">拖拽PNG图片一键生成40种MSIX图标尺寸</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="iconformsix.feature.autogen.title">自动生成</div>
+                        <div class="feature-desc" data-i18n="iconformsix.feature.autogen.desc">自动生成Assets文件夹，包含全套MSIX图标规格</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="iconformsix.feature.supersample.title">超采样技术</div>
+                        <div class="feature-desc" data-i18n="iconformsix.feature.supersample.desc">采用超采样技术处理，确保图标边缘平滑无锯齿</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="iconformsix.feature.i18n.title">多语言界面</div>
+                        <div class="feature-desc" data-i18n="iconformsix.feature.i18n.desc">支持中/英文界面切换，自动识别系统语言</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" data-i18n="iconformsix.feature.async.title">异步处理</div>
+                        <div class="feature-desc" data-i18n="iconformsix.feature.async.desc">图标生成使用子线程处理，避免界面卡死</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.techstack">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag">PySide6</span>
+                    <span class="tech-tag">Pillow</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-iconformsix">
+                <h2 class="section-title" data-i18n="section.updatetree">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-iconformsix">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text" data-i18n="loading.default">加载中...</div>
+                    </div>
+                </div>
+            </div>
+                </section>
+
+        <!-- Nexus Terminal 项目页面 -->
+        <section class="project-page" id="nexusterminal">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <img src="assets/images/icon/Nexus%20Terminal.ico" alt="Nexus Terminal">
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title">Nexus Terminal</h1>
+                        <p class="project-subtitle" data-i18n="project.nexusterminal.subtitle">轻量级终端辅助工具，隧道、服务器、端口管理、多线程下载</p>
+                        <div class="project-links">
+                            <a href="https://github.com/LisseldeE/Nexus-Terminal" target="_blank" class="project-link">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                <span data-i18n="link.github">GitHub 仓库</span>
+                            </a>
+                            <div class="project-latest-build" id="latest-build-nexusterminal">
+                                <div class="project-latest-build-loading">
+                                    <div class="project-latest-build-spinner"></div>
+                                    <span class="project-latest-build-loading-text" data-i18n="loading.fetching">获取中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-header-right">
+                    <div class="header-download-platforms">
+                        <div class="header-download-platform">
+                            <span class="header-download-platform-title" data-i18n="download.other">其他下载</span>
+                            <div class="header-download-platform-buttons">
+                                <a href="https://github.com/LisseldeE/Nexus-Terminal/releases" target="_blank" class="download-btn github">
+                                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.065 1.815 2.79 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.35-5.46-5.985 0-1.32.465-2.415 1.23-3.255-.12-.3-.54-1.545.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.635.24 2.88.12 3.18.765.84 1.23 1.935 1.23 3.255 0 4.65-2.805 5.685-5.46 5.985.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    GitHub
+                                </a>
+                                <a href="https://gitee.com/Lisselde_E/Nexus-Terminal/releases" target="_blank" class="download-btn gitee">
+                                    <img src="https://cdn.simpleicons.org/gitee/C71D23" width="18" height="18" alt="Gitee" style="vertical-align: middle;">
+                                    Gitee
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片展示 -->
+            <div class="image-gallery-section">
+                <h2 class="section-title" data-i18n="section.screenshots">界面截图</h2>
+                <div class="image-gallery single-image" id="gallery-nexusterminal">
+                    <div class="gallery-thumbnails">
+                        <div class="gallery-thumb active" data-index="0">
+                            <img src="assets/images/webp/6-1.webp" alt="Nexus Terminal 交互模式">
+                        </div>
+                    </div>
+                    <div class="gallery-main">
+                        <img class="gallery-main-image current" src="assets/images/webp/6-1.webp" alt="Nexus Terminal 交互模式">
+                        <img class="gallery-main-image next hidden" src="assets/images/webp/6-1.webp" alt="">
+                        <div class="gallery-counter">1 / 1</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-caption" data-i18n="nexusterminal.gallery.caption">Nexus Terminal 交互模式</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 快速导航 -->
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.quicknav">功能速览</h2>
+                <div class="usage-card">
+                    <div class="quick-nav-container" id="quick-nav-nexusterminal">
+                        <div class="quick-nav-loading">
+                            <div class="update-tree-scanner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 命令参考 -->
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.commands">命令参考</h2>
+                <div class="usage-card">
+                    <div class="command-list" id="command-list-nexusterminal">
+                        <div class="command-list-loading">
+                            <div class="update-tree-scanner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.techstack">技术栈</h2>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python 3.x</span>
+                    <span class="tech-tag" data-i18n="nexusterminal.tech.stdlib">纯标准库</span>
+                    <span class="tech-tag" data-i18n="nexusterminal.tech.nuitka">Nuitka 编译</span>
+                </div>
+            </div>
+
+            <!-- 更新树 -->
+            <div class="features-section update-tree-section" id="update-tree-nexusterminal">
+                <h2 class="section-title" data-i18n="section.updatetree">📋 更新树</h2>
+                <div class="update-tree-container" id="update-container-nexusterminal">
+                    <div class="update-tree-loading">
+                        <div class="update-tree-scanner"></div>
+                        <div class="update-tree-loading-text" data-i18n="loading.default">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 小工具页面 -->
+        <section class="project-page" id="tools">
+            <div class="project-header">
+                <div class="project-header-left">
+                    <div class="project-icon-large">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <div class="project-info">
+                        <h1 class="project-title" data-i18n="tools.title">小工具</h1>
+                        <p class="project-subtitle" data-i18n="tools.subtitle">在线实用小工具集合</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="tools.section.available">可用工具</h2>
+                <div class="tools-grid">
+                    <!-- 随机数生成器 -->
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <div class="tool-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/>
+                                </svg>
+                            </div>
+                            <div class="tool-title" data-i18n="tools.random.title">随机整数生成器</div>
+                        </div>
+                        <div class="tool-content">
+                            <div class="tool-input-group">
+                                <div class="tool-input-item">
+                                    <label data-i18n="tools.random.min">最小值</label>
+                                    <input type="number" id="randMin" value="1" placeholder="最小值" data-i18n-placeholder="tools.random.min.placeholder">
+                                </div>
+                                <div class="tool-input-item">
+                                    <label data-i18n="tools.random.max">最大值</label>
+                                    <input type="number" id="randMax" value="100" placeholder="最大值" data-i18n-placeholder="tools.random.max.placeholder">
+                                </div>
+                            </div>
+                            <button class="tool-btn" id="randGenerateBtn" data-i18n="tools.random.generate">生成随机数</button>
+                            <div class="tool-result" id="randResult">—</div>
+                            <div class="tool-hint" data-i18n="tools.random.hint">结果包含最小值和最大值</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 更新树数据已嵌入主网页，使用远程CHANGELOG.md动态获取 -->
+
+    
+
+    
+
+    <!-- Lightbox 放大查看 -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <div class="lightbox-hint" data-i18n="lightbox.hint">双指缩放 / 双击放大</div>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部" data-i18n-aria-label="backtotop.aria">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
