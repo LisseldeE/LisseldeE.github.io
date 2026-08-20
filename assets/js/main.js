@@ -546,7 +546,7 @@ async function retryFetchChangelog(project) {
         'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
         'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md',
         'nexusterminal': 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/CHANGELOG.md',
-        'deskflow': 'https://raw.githubusercontent.com/LisseldeE/DeskFlow/main/CHANGELOG.md'
+        'caprise': 'https://raw.githubusercontent.com/LisseldeE/CapRise/main/CHANGELOG.md'
     };
 
     const url = urls[project];
@@ -677,7 +677,7 @@ const projectIdMap = {
     '4': 'deskhelper',
     '5': 'iconformsix',
     '6': 'nexusterminal',
-    '7': 'deskflow',
+    '7': 'caprise',
     'X': 'tools'
 };
 
@@ -690,7 +690,7 @@ const projectNameMap = {
     'deskhelper': '4',
     'iconformsix': '5',
     'nexusterminal': '6',
-    'deskflow': '7',
+    'caprise': '7',
     'tools': 'X'
 };
 
@@ -767,7 +767,7 @@ document.querySelectorAll('.home-project-card').forEach(card => {
 
 // 键盘导航
 document.addEventListener('keydown', (e) => {
-    const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'deskflow', 'tokenpeek', 'iconformsix', 'nexusterminal'];
+    const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'caprise', 'tokenpeek', 'iconformsix', 'nexusterminal'];
     const currentIndex = projectOrder.indexOf(currentProject);
 
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
@@ -853,7 +853,7 @@ function handleSwipe() {
     if (Math.abs(diffX) < Math.abs(diffY) * 0.8) return;
     if (Math.abs(diffX) < 50) return;
 
-    const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'deskflow', 'tokenpeek', 'iconformsix', 'nexusterminal'];
+    const projectOrder = ['home', 'lansyncbox', 'syncgui', 'deskhelper', 'caprise', 'tokenpeek', 'iconformsix', 'nexusterminal'];
     const currentIndex = projectOrder.indexOf(currentProject);
 
     if (diffX > 0) {
@@ -921,7 +921,7 @@ function loadUpdateTree(projectId) {
         'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
         'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md',
         'nexusterminal': 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/CHANGELOG.md',
-        'deskflow': 'https://raw.githubusercontent.com/LisseldeE/DeskFlow/main/CHANGELOG.md'
+        'caprise': 'https://raw.githubusercontent.com/LisseldeE/CapRise/main/CHANGELOG.md'
     };
 
     const url = projectUrls[projectId];
@@ -1207,7 +1207,7 @@ document.querySelectorAll('.nav-item, .nav-home').forEach(item => {
             'lansyncbox': 'gallery-lansyncbox',
             'syncgui': 'gallery-syncgui',
             'deskhelpergui': 'gallery-deskhelper',
-            'deskflow': 'gallery-deskflow',
+            'caprise': 'gallery-caprise',
             'tokenpeek': 'gallery-tokenpeek',
             'iconformsix': 'gallery-iconformsix',
             'nexusterminal': 'gallery-nexusterminal'
@@ -1232,7 +1232,7 @@ document.addEventListener('keydown', () => {
                 'lansyncbox': 'gallery-lansyncbox',
                 'syncgui': 'gallery-syncgui',
                 'deskhelpergui': 'gallery-deskhelper',
-                'deskflow': 'gallery-deskflow',
+                'caprise': 'gallery-caprise',
                 'tokenpeek': 'gallery-tokenpeek',
                 'nexusterminal': 'gallery-nexusterminal'
             };
@@ -1386,7 +1386,7 @@ window.addEventListener('load', () => {
     initGallery('gallery-lansyncbox');
     initGallery('gallery-syncgui');
     initGallery('gallery-deskhelper');
-    initGallery('gallery-deskflow');
+    initGallery('gallery-caprise');
     initGallery('gallery-tokenpeek');
     initGallery('gallery-nexusterminal');
     initLightbox();
