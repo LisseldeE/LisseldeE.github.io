@@ -116,11 +116,9 @@ window.ChangelogParser = {
         const timestamp = Date.now();
         const urlWithTimestamp = `${url}?t=${timestamp}`;
         const corsProxies = [
-            // CORS代理（更稳定）
+            // CORS代理
             `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`,
-            // 直接访问GitHub（不稳定，放最后）
-            urlWithTimestamp
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`
         ];
 
         for (const proxyUrl of corsProxies) {
@@ -230,8 +228,7 @@ const CommandParser = {
         const urlWithTimestamp = `${url}?t=${timestamp}`;
         const corsProxies = [
             `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`,
-            urlWithTimestamp
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`
         ];
 
         for (const proxyUrl of corsProxies) {
@@ -442,8 +439,7 @@ const QuickNavParser = {
         const urlWithTimestamp = `${url}?t=${timestamp}`;
         const corsProxies = [
             `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`,
-            urlWithTimestamp
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`
         ];
 
         for (const proxyUrl of corsProxies) {
