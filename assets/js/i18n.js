@@ -76,7 +76,7 @@ window.I18N = {
         'project.lansyncbox.subtitle': '局域网文件实时同步工具，实现多人隔空文件共享',
         'project.syncgui.subtitle': '双端文件同步工具，支持智能差异检测',
         'project.deskhelper.subtitle': '桌面办公小助手，集成多种实用工具',
-        'project.caprise.subtitle': '基于 PySide6 的 Windows 桌面快捷工具栏，全局热键唤起，截屏、翻译、标注、局域网剪切板一触即达',
+        'project.caprise.subtitle': '基于 PySide6 的 Windows 桌面快捷工具栏，全局热键唤起，截屏、翻译、标注、局域网剪切板、全局搜索一触即达',
         'project.tokenpeek.subtitle': 'AI额度实时监控工具，托盘常驻提醒',
         'project.iconformsix.subtitle': 'MSIX应用图标集批量生成工具',
         'project.nexusterminal.subtitle': '轻量级终端辅助工具，隧道、服务器、端口管理、多线程下载',
@@ -124,7 +124,7 @@ window.I18N = {
         // CapRise
         'caprise.gallery.caption': 'CapRise 悬浮胶囊面板',
         'caprise.feature.capsule.title': '悬浮胶囊',
-        'caprise.feature.capsule.desc': '简洁的胶囊形悬浮面板，跟随系统主题自适应，SVG 矢量图标悬停变色，平滑弹出/收起动画',
+        'caprise.feature.capsule.desc': '简洁的胶囊形悬浮面板，跟随系统主题自适应，SVG 矢量图标悬停变色，平滑弹出/收起动画；支持拖拽排序工具、眼睛图标一键显示/隐藏',
         'caprise.feature.screenshot.title': '截屏工具',
         'caprise.feature.screenshot.desc': '从任意方向框选截屏区域，实时预览、确认后保存，支持复制到剪贴板',
         'caprise.feature.translate.title': '区域翻译',
@@ -134,11 +134,13 @@ window.I18N = {
         'caprise.feature.clipboard.title': '局域网剪切板',
         'caprise.feature.clipboard.desc': '房间号配对自动组网，UDP + TCP 双通道发现、星型中继，历史记录持久化到 SQLite',
         'caprise.feature.hotkey.title': '全局快捷键',
-        'caprise.feature.hotkey.desc': 'Ctrl + · 一键唤出/隐藏悬浮面板，Win32 全局快捷键注册，托盘图标常驻双击唤起',
+        'caprise.feature.hotkey.desc': 'Ctrl + ` 一键唤出/隐藏悬浮面板；截屏、标注、翻译、剪切板、搜索等 7 个功能均可自定义全局快捷键，支持一键重置恢复默认；Win32 全局注册，托盘图标常驻双击唤起',
+        'caprise.feature.search.title': '全局搜索',
+        'caprise.feature.search.desc': '快捷键唤起搜索卡片，软件与文件（Everything 引擎）秒级检索，内置快捷计算',
         'caprise.feature.smarthide.title': '智能隐藏',
         'caprise.feature.smarthide.desc': '点击空白区域或按 ESC 自动收起，对自家扩展窗口（家族窗口）友好，不会误关闭',
         'caprise.feature.settings.title': '设置面板',
-        'caprise.feature.settings.desc': '语言切换、翻译目标语言、快捷键查看、开机自启、关于页与检查更新，状态持久化'
+        'caprise.feature.settings.desc': '语言切换、翻译目标语言、快捷键自定义与一键重置、开机自启、关于页与检查更新；工具排序列表点击无选中/焦点高亮，状态持久化'
     },
 
     'en': {
@@ -217,7 +219,7 @@ window.I18N = {
         'project.lansyncbox.subtitle': 'Real-time LAN file sync for multi-user file sharing',
         'project.syncgui.subtitle': 'Dual-end file sync with smart diff detection',
         'project.deskhelper.subtitle': 'Desktop assistant with integrated utilities',
-        'project.caprise.subtitle': 'A PySide6-based Windows desktop quick toolbar. Global hotkey invoke: screenshot, translate, annotate, LAN clipboard at your fingertips',
+        'project.caprise.subtitle': 'A PySide6-powered Windows desktop quick toolbar summoned by a global hotkey — screenshot, translate, annotate, LAN clipboard and global search at your fingertips',
         'project.tokenpeek.subtitle': 'AI quota monitor with system tray integration',
         'project.iconformsix.subtitle': 'Batch MSIX app icon set generator',
         'project.nexusterminal.subtitle': 'Lightweight terminal toolkit: tunneling, server, port management, download',
@@ -411,7 +413,7 @@ window.I18N = {
         // CapRise
         'caprise.gallery.caption': 'CapRise Quick Capsule Panel',
         'caprise.feature.capsule.title': 'Quick Capsule',
-        'caprise.feature.capsule.desc': 'Compact capsule floating panel, adapts to system theme, SVG vector icons change color on hover, smooth expand/collapse animations',
+        'caprise.feature.capsule.desc': 'Compact capsule floating panel, adapts to system theme, SVG vector icons change color on hover, smooth expand/collapse animations; drag to reorder tools and use the eye icon to show/hide each one',
         'caprise.feature.screenshot.title': 'Screenshot',
         'caprise.feature.screenshot.desc': 'Select regions from any direction, real-time preview, save after confirmation, copy to clipboard',
         'caprise.feature.translate.title': 'Region Translate',
@@ -421,11 +423,13 @@ window.I18N = {
         'caprise.feature.clipboard.title': 'LAN Clipboard',
         'caprise.feature.clipboard.desc': 'Room-number pairing auto mesh networking, UDP + TCP dual-channel discovery, star relay, history persisted to SQLite',
         'caprise.feature.hotkey.title': 'Global Hotkey',
-        'caprise.feature.hotkey.desc': 'Ctrl + ` toggles the floating panel, Win32 global hotkey registration, tray icon always-on with double-click invoke',
+        'caprise.feature.hotkey.desc': 'Ctrl + ` toggles the floating panel; global hotkeys for 7 features (screenshot, annotation, translate, clipboard, search, ...) are fully customizable with one-click reset to defaults; Win32 global registration, always-on tray icon with double-click invoke',
+        'caprise.feature.search.title': 'Global Search',
+        'caprise.feature.search.desc': 'Summon a search card by hotkey; instant lookup of apps and files (Everything engine) with built-in quick math',
         'caprise.feature.smarthide.title': 'Smart Hide',
         'caprise.feature.smarthide.desc': 'Click blank area or press ESC to auto-collapse, family-window aware so own extension windows are never mis-closed',
         'caprise.feature.settings.title': 'Settings Panel',
-        'caprise.feature.settings.desc': 'Language switch, translation target language, hotkey view, autostart, about page and update check, persistent state',
+        'caprise.feature.settings.desc': 'Language switch, translation target language, hotkey customization with one-click reset, autostart, about page and update check; the tool order list shows no selection/focus highlight on click, persistent state',
 
         // Tools section
         'tools.title': 'Tools',
