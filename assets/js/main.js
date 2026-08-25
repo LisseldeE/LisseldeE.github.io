@@ -112,40 +112,26 @@ window.ChangelogParser = {
         const cached = localStorage.getItem(cacheKey);
         const cacheTime = localStorage.getItem(cacheTimeKey);
 
-        // 使用 CORS 代理获取，添加时间戳绕过缓存
-        const timestamp = Date.now();
-        const urlWithTimestamp = `${url}?t=${timestamp}`;
-        const corsProxies = [
-            // CORS代理
-            `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`
-        ];
+        // 本地同源文件获取（无 CORS、不依赖第三方代理）
+        try {
+            const response = await fetch(url);
 
-        for (const proxyUrl of corsProxies) {
-            try {
-                console.log(`Trying ${proxyUrl}`);
-                const response = await fetch(proxyUrl);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-
-                const markdown = await response.text();
-                const data = this.parse(markdown);
-                
-                // 缓存数据（作为备用）
-                localStorage.setItem(cacheKey, JSON.stringify(data));
-                localStorage.setItem(cacheTimeKey, Date.now().toString());
-                
-                console.log(`Successfully fetched ${project} changelog`);
-                return data;
-            } catch (error) {
-                console.error(`Proxy ${proxyUrl} failed:`, error);
-                continue;
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
             }
+
+            const markdown = await response.text();
+            const data = this.parse(markdown);
+
+            // 缓存数据（作为备用）
+            localStorage.setItem(cacheKey, JSON.stringify(data));
+            localStorage.setItem(cacheTimeKey, Date.now().toString());
+            return data;
+        } catch (error) {
+            console.error(`Fetch changelog ${project} failed:`, error);
         }
 
-        // 所有代理都失败了，尝试使用缓存
+        // 获取失败，尝试使用缓存
         if (cached) {
             console.log(`Using cached data for ${project}`);
             try {
@@ -155,7 +141,7 @@ window.ChangelogParser = {
             }
         }
 
-        throw new Error('所有代理都失败了，且无缓存数据');
+        throw new Error('获取 CHANGELOG 失败，且无缓存数据');
     },
 
     /**
@@ -183,6 +169,8 @@ const CommandParser = {
      * @returns {Object|null} 含有 commands 数组的对象
      */
     parse(markdown) {
+        // 统一行尾，兼容 CRLF（\r\n）文件
+        markdown = markdown.replace(/\r\n/g, '\n');
         // 找到 ## 命令 / ## Commands 部分（兼容单/双换行）
         const headerPattern = window.getCurrentLang() === 'en'
             ? /## Commands\n+([\s\S]*?)(?=\n##|\n---|$)/
@@ -224,31 +212,17 @@ const CommandParser = {
      * @returns {Promise<Object>} 解析后的命令数据
      */
     async fetch(url) {
-        const timestamp = Date.now();
-        const urlWithTimestamp = `${url}?t=${timestamp}`;
-        const corsProxies = [
-            `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`
-        ];
-
-        for (const proxyUrl of corsProxies) {
-            try {
-                const response = await fetch(proxyUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                const markdown = await response.text();
-                const data = this.parse(markdown);
-                if (data) {
-                    return data;
-                }
-                throw new Error('无法解析命令表格');
-            } catch (error) {
-                console.log(`CommandParser proxy failed: ${proxyUrl}`, error);
-            }
+        // 本地同源文件获取（无 CORS、不依赖第三方代理）
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
-
-        throw new Error('所有代理都失败了');
+        const markdown = await response.text();
+        const data = this.parse(markdown);
+        if (data) {
+            return data;
+        }
+        throw new Error('无法解析命令表格');
     },
 
     /**
@@ -305,7 +279,7 @@ async function loadCommands() {
         </div>
     `;
 
-    const url = 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/NT.md';
+    const url = 'assets/changelog/NT.md';
     const data = await CommandParser.getData(url);
 
     if (data && data.commands && data.commands.length > 0) {
@@ -325,7 +299,7 @@ async function retryFetchCommands() {
         </div>
     `;
 
-    const url = 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/NT.md';
+    const url = 'assets/changelog/NT.md';
     const data = await CommandParser.getData(url);
 
     if (data && data.commands && data.commands.length > 0) {
@@ -341,6 +315,8 @@ const QuickNavParser = {
      * 解析 Markdown 中的 ### 快速导航 列表
      */
     parse(markdown) {
+        // 统一行尾，兼容 CRLF（\r\n）文件
+        markdown = markdown.replace(/\r\n/g, '\n');
         const headerPattern = window.getCurrentLang() === 'en'
             ? /### Quick Navigation\n\n?([\s\S]*?)(?=\n###|\n##|\n---|$)/
             : /### 快速导航\n\n?([\s\S]*?)(?=\n###|\n##|\n---|$)/;
@@ -435,26 +411,13 @@ const QuickNavParser = {
     },
 
     async fetch(url) {
-        const timestamp = Date.now();
-        const urlWithTimestamp = `${url}?t=${timestamp}`;
-        const corsProxies = [
-            `https://corsproxy.io/?${encodeURIComponent(urlWithTimestamp)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(urlWithTimestamp)}`
-        ];
-
-        for (const proxyUrl of corsProxies) {
-            try {
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const markdown = await response.text();
-                const data = this.parse(markdown);
-                if (data) return data;
-                throw new Error('无法解析快速导航');
-            } catch (error) {
-                console.log(`QuickNavParser proxy failed: ${proxyUrl}`, error);
-            }
-        }
-        throw new Error('所有代理都失败了');
+        // 本地同源文件获取（无 CORS、不依赖第三方代理）
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const markdown = await response.text();
+        const data = this.parse(markdown);
+        if (data) return data;
+        throw new Error('无法解析快速导航');
     },
 
     async getData(url) {
@@ -499,9 +462,7 @@ async function loadQuickNav() {
         </div>
     `;
 
-    const lang = window.getCurrentLang();
-    const mdFile = lang === 'en' ? 'README_EN.md' : 'README.md';
-    const url = `https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/${mdFile}`;
+    const url = 'assets/changelog/NT.md';
     const data = await QuickNavParser.getData(url);
 
     if (data && data.tree && data.tree.length > 0) {
@@ -521,9 +482,7 @@ async function retryFetchQuickNav() {
         </div>
     `;
 
-    const lang = window.getCurrentLang();
-    const mdFile = lang === 'en' ? 'README_EN.md' : 'README.md';
-    const url = `https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/${mdFile}`;
+    const url = 'assets/changelog/NT.md';
     const data = await QuickNavParser.getData(url);
 
     if (data && data.tree && data.tree.length > 0) {
@@ -535,17 +494,10 @@ async function retryFetchQuickNav() {
 
 // 重新获取更新日志
 async function retryFetchChangelog(project) {
-    const urls = {
-        'lansyncbox': 'https://raw.githubusercontent.com/LisseldeE/LANSyncBox/main/CHANGELOG.md',
-        'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
-        'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
-        'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
-        'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md',
-        'nexusterminal': 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/CHANGELOG.md',
-        'caprise': 'https://raw.githubusercontent.com/LisseldeE/CapRise/main/CHANGELOG.md'
-    };
-
-    const url = urls[project];
+    // 从本地同源文件获取（assets/changelog 目录）
+    const fileMap = { 'nexusterminal': 'Nexus Terminal.md' };
+    const file = fileMap[project] || `${project}.md`;
+    const url = `assets/changelog/${file}`;
     if (!url) return;
 
     // 清除该项目的缓存，确保获取最新数据
@@ -910,18 +862,10 @@ function loadUpdateTree(projectId) {
     const container = document.getElementById(`update-container-${projectId}`);
     if (!container) return;
 
-    const projectUrls = {
-        'lansyncbox': 'https://raw.githubusercontent.com/LisseldeE/LANSyncBox/main/CHANGELOG.md',
-        'syncgui': 'https://raw.githubusercontent.com/LisseldeE/SyncGUI/main/CHANGELOG.md',
-        'tokenpeek': 'https://raw.githubusercontent.com/LisseldeE/TokenPeek/main/CHANGELOG.md',
-        'deskhelper': 'https://raw.githubusercontent.com/LisseldeE/DeskHelperGUI/main/CHANGELOG.md',
-        'iconformsix': 'https://raw.githubusercontent.com/LisseldeE/IconForMsix/main/CHANGELOG.md',
-        'nexusterminal': 'https://raw.githubusercontent.com/LisseldeE/Nexus-Terminal/main/CHANGELOG.md',
-        'caprise': 'https://raw.githubusercontent.com/LisseldeE/CapRise/main/CHANGELOG.md'
-    };
-
-    const url = projectUrls[projectId];
-    if (!url) return;
+    // 从本地同源文件获取（assets/changelog 目录，无 CORS、不依赖第三方代理）
+    const fileMap = { 'nexusterminal': 'Nexus Terminal.md' };
+    const file = fileMap[projectId] || `${projectId}.md`;
+    const url = `assets/changelog/${file}`;
 
     // 检查数据是否已加载
     const data = (window.__UPDATE_TREE__ || {})[projectId];
@@ -1193,9 +1137,11 @@ document.querySelectorAll('.nav-item, .nav-home').forEach(item => {
         const targetProject = item.dataset.project;
         setTimeout(() => loadUpdateTree(targetProject), 100);
 
-        // 切换项目时重新加载命令列表
-        setTimeout(() => loadCommands(), 100);
-        setTimeout(() => loadQuickNav(), 100);
+        // 仅在 Nexus Terminal 界面加载命令与快速导航
+        if (targetProject === 'nexusterminal') {
+            setTimeout(() => loadCommands(), 100);
+            setTimeout(() => loadQuickNav(), 100);
+        }
 
         // 重置图片列表到第一张
         const galleryMap = {
@@ -1220,8 +1166,11 @@ document.addEventListener('keydown', () => {
         const activePage = document.querySelector('.project-page.active');
         if (activePage) {
             loadUpdateTree(activePage.id);
-            loadCommands();
-            loadQuickNav();
+            // 仅 Nexus Terminal 界面加载命令与快速导航
+            if (activePage.id === 'nexusterminal') {
+                loadCommands();
+                loadQuickNav();
+            }
             // 重置图片列表
             const galleryMap = {
                 'home': null,
