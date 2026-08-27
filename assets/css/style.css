@@ -2011,6 +2011,44 @@ body::after {
     margin-top: 1rem;
 }
 
+/* CapRise 功能一览概览大卡 */
+.caprise-feature-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.caprise-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    line-height: 1.6;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.caprise-feature-item:last-child {
+    border-bottom: none;
+}
+
+.caprise-fn-name {
+    flex: none;
+    min-width: 7rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    border-left: 2px solid var(--accent-cyan);
+    padding-left: 0.6rem;
+    line-height: 1.6;
+}
+
+.caprise-fn-desc {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
 .tech-tag {
     display: inline-flex;
     align-items: center;
@@ -2021,6 +2059,24 @@ body::after {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
+    color: var(--accent-blue);
+}
+
+/* 致谢板块 */
+.acknowledgement-desc {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+.ack-link {
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ack-link:hover {
+    background: rgba(59, 130, 246, 0.18);
     color: var(--accent-blue);
 }
 
@@ -2431,6 +2487,11 @@ body::after {
     font-weight: 600;
     line-height: 1;
     transition: all 0.2s ease;
+}
+
+.update-major-toggle svg {
+    display: block;
+    flex: none;
 }
 
 .update-major-header:hover .update-major-toggle {

@@ -137,10 +137,17 @@ window.I18N = {
         'caprise.feature.hotkey.desc': 'Ctrl + ` 一键唤出/隐藏悬浮面板；截屏、标注、翻译、剪切板、搜索等 7 个功能均可自定义全局快捷键，支持一键重置恢复默认；Win32 全局注册，托盘图标常驻双击唤起',
         'caprise.feature.search.title': '全局搜索',
         'caprise.feature.search.desc': '快捷键唤起搜索卡片，软件与文件（Everything 引擎）秒级检索，内置快捷计算',
+        'caprise.feature.timer.title': '计时器',
+        'caprise.feature.timer.desc': '内置番茄钟与倒计时，剩余时间在悬浮胶囊上同步显示',
+        'caprise.feature.colorpicker.title': '取色器',
+        'caprise.feature.colorpicker.desc': '屏幕任意位置点击取色，一键复制颜色值',
         'caprise.feature.smarthide.title': '智能隐藏',
         'caprise.feature.smarthide.desc': '点击空白区域或按 ESC 自动收起，对自家扩展窗口（家族窗口）友好，不会误关闭',
         'caprise.feature.settings.title': '设置面板',
-        'caprise.feature.settings.desc': '语言切换、翻译目标语言、快捷键自定义与一键重置、开机自启、关于页与检查更新；工具排序列表点击无选中/焦点高亮，状态持久化'
+        'caprise.feature.settings.desc': '语言切换、翻译目标语言、快捷键自定义与一键重置、开机自启、关于页与检查更新；工具排序列表点击无选中/焦点高亮，状态持久化',
+        'caprise.ack.title': '致谢',
+        'caprise.ack.desc': '本项目全局文件搜索功能引用并依赖 Everything 的索引与检索引擎（通过其命令行工具 es.exe 调用），感谢 Everything 开发者 David Carpenter 及 Everything 开发团队为我们提供如此优秀的本地文件搜索工具。',
+        'caprise.ack.link': '了解更多 →'
     },
 
     'en': {
@@ -426,10 +433,17 @@ window.I18N = {
         'caprise.feature.hotkey.desc': 'Ctrl + ` toggles the floating panel; global hotkeys for 7 features (screenshot, annotation, translate, clipboard, search, ...) are fully customizable with one-click reset to defaults; Win32 global registration, always-on tray icon with double-click invoke',
         'caprise.feature.search.title': 'Global Search',
         'caprise.feature.search.desc': 'Summon a search card by hotkey; instant lookup of apps and files (Everything engine) with built-in quick math',
+        'caprise.feature.timer.title': 'Timer',
+        'caprise.feature.timer.desc': 'Built-in Pomodoro and countdown timer, remaining time shown live on the floating capsule',
+        'caprise.feature.colorpicker.title': 'Color Picker',
+        'caprise.feature.colorpicker.desc': 'Click anywhere on screen to pick a color, one-click copy the color value',
         'caprise.feature.smarthide.title': 'Smart Hide',
         'caprise.feature.smarthide.desc': 'Click blank area or press ESC to auto-collapse, family-window aware so own extension windows are never mis-closed',
         'caprise.feature.settings.title': 'Settings Panel',
         'caprise.feature.settings.desc': 'Language switch, translation target language, hotkey customization with one-click reset, autostart, about page and update check; the tool order list shows no selection/focus highlight on click, persistent state',
+        'caprise.ack.title': 'Acknowledgements',
+        'caprise.ack.desc': 'The global file search feature of this project uses and depends on the Everything indexing and search engine (invoked through its command-line tool es.exe). Thanks to Everything developer David Carpenter and the Everything team for providing such an excellent local file search tool.',
+        'caprise.ack.link': 'Learn more →',
 
         // Tools section
         'tools.title': 'Tools',

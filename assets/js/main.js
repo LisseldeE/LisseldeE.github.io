@@ -114,7 +114,7 @@ window.ChangelogParser = {
 
         // 本地同源文件获取（无 CORS、不依赖第三方代理）
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, { cache: 'no-store' });
 
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
@@ -213,7 +213,7 @@ const CommandParser = {
      */
     async fetch(url) {
         // 本地同源文件获取（无 CORS、不依赖第三方代理）
-        const response = await fetch(url);
+        const response = await fetch(url, { cache: 'no-store' });
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
         }
@@ -412,7 +412,7 @@ const QuickNavParser = {
 
     async fetch(url) {
         // 本地同源文件获取（无 CORS、不依赖第三方代理）
-        const response = await fetch(url);
+        const response = await fetch(url, { cache: 'no-store' });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const markdown = await response.text();
         const data = this.parse(markdown);
@@ -848,13 +848,13 @@ function toggleMajorGroup(headerEl) {
         group.classList.remove('collapsed');
         body.style.maxHeight = body.scrollHeight + 'px';
         body.style.opacity = '1';
-        toggle.textContent = '\u2212';
+        toggle.innerHTML = '<svg viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 5h6"/></svg>';
     } else {
         // 收起
         group.classList.add('collapsed');
         body.style.maxHeight = '0';
         body.style.opacity = '0';
-        toggle.textContent = '+';
+        toggle.innerHTML = '<svg viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 2v6M2 5h6"/></svg>';
     }
 }
 
@@ -1023,7 +1023,7 @@ function renderUpdateTree(projectId, data) {
         html += `<div class="update-major-header" onclick="toggleMajorGroup(this)">`;
         html += `<span class="update-major-badge">R${major}</span>`;
         html += `<span class="update-major-label">${headerTag || buildCount + ' ' + window.t('updatetree.builds')}</span>`;
-        html += `<span class="update-major-toggle">${isLatestGroup ? '\u2212' : '+'}</span>`;
+        html += `<span class="update-major-toggle">${isLatestGroup ? '<svg viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 5h6"/></svg>' : '<svg viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 2v6M2 5h6"/></svg>'}</span>`;
         html += `</div>`;
 
         // Versions body

@@ -1241,43 +1241,55 @@
             </div>
 
             <div class="features-section">
-                <h2 class="section-title" data-i18n="section.features">核心功能</h2>
+                <h2 class="section-title">Function Overview</h2>
+                <div class="usage-card">
+                    <div class="caprise-feature-list">
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">Screenshot</span>
+                            <span class="caprise-fn-desc">Select any region to capture, live preview, with save and copy options</span>
+                        </div>
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">Annotation</span>
+                            <span class="caprise-fn-desc">Rectangle, free-form or text annotations that keep the original content inside, draggable and removable</span>
+                        </div>
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">Translate</span>
+                            <span class="caprise-fn-desc">Select any on-screen region, OCR recognition and online translation to your target language</span>
+                        </div>
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">LAN Clipboard</span>
+                            <span class="caprise-fn-desc">Real-time clipboard text sync between devices in the same room, with local persistent history</span>
+                        </div>
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">Global Search</span>
+                            <span class="caprise-fn-desc">Search-as-you-type, covering quick math, installed apps and files on disk</span>
+                        </div>
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">Timer</span>
+                            <span class="caprise-fn-desc">Pomodoro or countdown timer, remaining time shown live on the floating capsule</span>
+                        </div>
+                        <div class="caprise-feature-item">
+                            <span class="caprise-fn-name">Color Picker</span>
+                            <span class="caprise-fn-desc">Pick a color by clicking anywhere on screen, one-click copy the color value</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="section.features">功能特性</h2>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.capsule.title">悬浮胶囊</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.capsule.desc">简洁的胶囊形悬浮面板，跟随系统主题自适应，SVG 矢量图标悬停变色，平滑弹出/收起动画；支持拖拽排序工具、眼睛图标一键显示/隐藏</div>
+                        <div class="feature-title" data-i18n="caprise.feature.capsule.title"></div>
+                        <div class="feature-desc" data-i18n="caprise.feature.capsule.desc"></div>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.screenshot.title">截屏工具</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.screenshot.desc">从任意方向框选截屏区域，实时预览、确认后保存，支持复制到剪贴板</div>
+                        <div class="feature-title" data-i18n="caprise.feature.smarthide.title"></div>
+                        <div class="feature-desc" data-i18n="caprise.feature.smarthide.desc"></div>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.translate.title">区域翻译</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.translate.desc">框选屏幕任意区域，WinRT 系统 OCR 识别文字，在线翻译多种语言，结果卡片淡入显示、一键复制</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.annotation.title">便捷标注</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.annotation.desc">矩形、自由形状、文字标注，可拖动、删除，固定底图避免框选内容与遮罩割裂</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.clipboard.title">局域网剪切板</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.clipboard.desc">房间号配对自动组网，UDP + TCP 双通道发现、星型中继，历史记录持久化到 SQLite</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.hotkey.title">全局快捷键</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.hotkey.desc">Ctrl + ` 一键唤出/隐藏悬浮面板；截屏、标注、翻译、剪切板、搜索等 7 个功能均可自定义全局快捷键，支持一键重置恢复默认；Win32 全局注册，托盘图标常驻双击唤起</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.search.title">全局搜索</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.search.desc">快捷键唤起搜索卡片，软件与文件（Everything 引擎）秒级检索，内置快捷计算</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.smarthide.title">智能隐藏</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.smarthide.desc">点击空白区域或按 ESC 自动收起，对自家扩展窗口（家族窗口）友好，不会误关闭</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-title" data-i18n="caprise.feature.settings.title">设置面板</div>
-                        <div class="feature-desc" data-i18n="caprise.feature.settings.desc">语言切换、翻译目标语言、快捷键自定义与一键重置、开机自启、关于页与检查更新；工具排序列表点击无选中/焦点高亮，状态持久化</div>
+                        <div class="feature-title" data-i18n="caprise.feature.settings.title"></div>
+                        <div class="feature-desc" data-i18n="caprise.feature.settings.desc"></div>
                     </div>
                 </div>
             </div>
@@ -1289,9 +1301,20 @@
                     <span class="tech-tag">PySide6</span>
                     <span class="tech-tag">Win32 API</span>
                     <span class="tech-tag">WinRT</span>
+                    <span class="tech-tag">SVG</span>
+                    <span class="tech-tag">JSON</span>
                     <span class="tech-tag">Socket (UDP+TCP)</span>
                     <span class="tech-tag">SQLite</span>
                     <span class="tech-tag">Everything</span>
+                </div>
+            </div>
+
+            <!-- 致谢 -->
+            <div class="features-section">
+                <h2 class="section-title" data-i18n="caprise.ack.title">致谢</h2>
+                <p class="acknowledgement-desc" data-i18n="caprise.ack.desc">本项目全局文件搜索功能引用并依赖 Everything 的索引与检索引擎（通过其命令行工具 es.exe 调用），感谢 Everything 开发者 David Carpenter 及 Everything 开发团队为我们提供如此优秀的本地文件搜索工具。</p>
+                <div class="tech-tags">
+                    <a class="tech-tag ack-link" href="https://www.voidtools.com/" target="_blank" data-i18n="caprise.ack.link">了解更多 →</a>
                 </div>
             </div>
 
