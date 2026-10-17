@@ -3346,3 +3346,27 @@ body::after {
         transform: none !important;
     }
 }
+
+/* 项目迁移提示 */
+#lansyncbox.project-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.migrated-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.migrated-notice-text {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}

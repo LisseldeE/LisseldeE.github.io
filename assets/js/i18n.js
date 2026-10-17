@@ -74,6 +74,8 @@ window.I18N = {
 
         // 项目副标题
         'project.lansyncbox.subtitle': '局域网文件实时同步工具，实现多人隔空文件共享',
+        'lansyncbox.migrated.text': '此界面内容已被迁移，点击下方按钮进入项目官网',
+        'lansyncbox.migrated.button': '进入项目官网',
         'project.syncgui.subtitle': '双端文件同步工具，支持智能差异检测',
         'project.deskhelper.subtitle': '桌面办公小助手，集成多种实用工具',
         'project.caprise.subtitle': '基于 PySide6 的 Windows 桌面快捷工具栏，全局热键唤起，截屏、翻译、标注、局域网剪切板、全局搜索一触即达',
@@ -224,6 +226,8 @@ window.I18N = {
 
         // Project subtitles
         'project.lansyncbox.subtitle': 'Real-time LAN file sync for multi-user file sharing',
+        'lansyncbox.migrated.text': 'This page has been moved. Click the button below to visit the official website.',
+        'lansyncbox.migrated.button': 'Visit Official Site',
         'project.syncgui.subtitle': 'Dual-end file sync with smart diff detection',
         'project.deskhelper.subtitle': 'Desktop assistant with integrated utilities',
         'project.caprise.subtitle': 'A PySide6-powered Windows desktop quick toolbar summoned by a global hotkey — screenshot, translate, annotate, LAN clipboard and global search at your fingertips',

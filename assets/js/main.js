@@ -1258,9 +1258,6 @@ function initGallery(galleryId) {
 
     const thumbs = gallery.querySelectorAll('.gallery-thumb');
     const counter = gallery.querySelector('.gallery-counter');
-    const caption = gallery.querySelector('.gallery-caption');
-
-    const captions = ['LANSyncBox 界面截图', 'LANSyncBox 界面截图'];
 
     thumbs.forEach((thumb, index) => {
         thumb.addEventListener('click', () => {
@@ -1291,9 +1288,8 @@ function initGallery(galleryId) {
                 nextImg.classList.add('current');
             }, 350);
 
-            // 更新计数器和描述
+            // 更新计数器
             if (counter) counter.textContent = `${index + 1} / ${thumbs.length}`;
-            if (caption) caption.textContent = captions[index] || '';
         });
     });
 }
