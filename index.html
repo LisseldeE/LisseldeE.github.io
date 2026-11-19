@@ -1,64 +1,131 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="/">
-    <title>Lisselde_E - 路由导航</title>
-    <meta name="description" content="Lisselde_E 的个人项目主页，包含 LANSyncBox、SyncGUI、DeskHelperGUI 等实用工具。">
+    <title>页面展示已暂停 - Lisselde_E</title>
+    <meta name="description" content="本站的页面展示已暂停，更新与资源文件保持原样。">
+    <meta name="robots" content="noindex">
     <link rel="icon" href="assets/images/icon/me.ico" type="image/x-icon">
-    <script>
-        // ========== 智能语言检测与路由 ==========
-        // 优先级：?lang= 参数 > localStorage > 浏览器语言
-        // 浏览器语言以 zh 开头 → 中文，否则 → 英文
-        (function() {
-            var path = window.location.pathname;
-            var hash = window.location.hash;
-            var search = window.location.search;
-            var lang = '';
+    <style>
+        :root {
+            --bg: #fbfbf9;
+            --text: #1a1a1a;
+            --muted: #6b6b6b;
+            --line: #e3e3df;
+        }
 
-            // 1. URL 参数优先
-            if (search.indexOf('lang=') !== -1) {
-                var langMatch = search.match(/lang=([^&]+)/);
-                if (langMatch) {
-                    lang = langMatch[1];
-                }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #121212;
+                --text: #e9e9e6;
+                --muted: #8f8f8b;
+                --line: #2b2b2b;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .site-header {
+            padding-top: 44px;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        main {
+            padding-top: 52px;
+            padding-bottom: 44px;
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font-family: Georgia, "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .en {
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            font-size: 15px;
+        }
+
+        footer {
+            padding-top: 18px;
+            padding-bottom: 40px;
+            border-top: 1px solid var(--line);
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+        }
+
+        footer a:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+
+        @media (max-width: 480px) {
+            .site-header {
+                padding-top: 32px;
             }
 
-            // 2. localStorage
-            if (!lang) {
-                lang = localStorage.getItem('site-lang') || '';
+            main {
+                padding-top: 36px;
             }
 
-            // 3. 浏览器语言检测
-            if (!lang) {
-                lang = (navigator.language || navigator.browserLanguage || '').toLowerCase();
-                lang = lang.indexOf('zh') === 0 ? 'zh-cn' : 'en';
+            h1 {
+                font-size: 25px;
             }
-
-            // 4. 子路径检测（覆盖）
-            if (path.indexOf('/en/') === 0 || path === '/en') {
-                lang = 'en';
-            } else if (path.indexOf('/zh-cn/') === 0 || path === '/zh-cn') {
-                lang = 'zh-cn';
-            }
-
-            // 保存语言偏好
-            localStorage.setItem('site-lang', lang);
-
-            // 重定向到对应语言目录
-            var targetPath = lang === 'en' ? '/en/' : '/zh-cn/';
-            var targetUrl = targetPath + (hash || '#0');
-            // 如果当前 URL 参数中有 lang=，用 replaceState 优雅切换
-            if (search.indexOf('lang=') !== -1) {
-                history.replaceState(null, '', targetUrl);
-            } else if (path.indexOf('/en/') !== 0 && path.indexOf('/zh-cn/') !== 0) {
-                // 根路径 → 重定向到语言子目录
-                window.location.replace(targetUrl);
-            }
-        })();
-    </script>
+        }
+    </style>
 </head>
 <body>
+    <div class="wrap site-header">站点公告</div>
+    <main class="wrap">
+        <h1>页面展示已暂停</h1>
+        <p>本站的详细展示页面暂时关闭</p>
+
+        <p class="en" lang="en">Page display is paused.</p>
+    </main>
 </body>
 </html>
